@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -25,14 +26,13 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
     compileOptions {
-        sourceCompatibility =JavaVersion.VERSION_1_8
-                targetCompatibility =JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -41,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion ="1.5.8"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -63,4 +63,9 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.compose.activity)
+
+    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.ext.compiler)
+    kapt(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.android)
 }
