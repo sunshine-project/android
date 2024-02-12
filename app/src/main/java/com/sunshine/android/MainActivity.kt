@@ -36,7 +36,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SunshineTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -52,13 +51,10 @@ class MainActivity : ComponentActivity() {
 fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier.border(color = Brown, width = 3.dp, shape = RectangleShape)
-
     ) {
         Profile(UserInfo("david", 1, 10, 5, 3, 7))
         Main(70)
     }
-
-
 }
 
 @Composable
@@ -66,27 +62,27 @@ fun Main(day: Int) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
+            .padding(20.dp)
             .background(color = Color.Magenta),
     ) {
         Column(
+            modifier = Modifier
+                .padding(top = 10.dp)
         ) {
-            // 이미지 A 표시
             Image(
-                painter = painterResource(id = R.drawable.btn_diary),
+                painter = painterResource(id = R.drawable.btn_quest),
                 contentDescription = "Quest",
                 modifier = Modifier
-                    .padding(16.dp)
-                    .width(50.dp)
+                    .padding(5.dp)
+                    .width(60.dp)
                     .fillMaxWidth()
             )
-
-            // 이미지 B 표시
             Image(
                 painter = painterResource(id = R.drawable.btn_diary),
                 contentDescription = "Diary",
                 modifier = Modifier
-                    .padding(16.dp)
-                    .width(50.dp)
+                    .padding(5.dp)
+                    .width(60.dp)
                     .fillMaxWidth()
             )
         }
@@ -108,7 +104,6 @@ fun Main(day: Int) {
             )
         }
     }
-
 }
 
 @Composable
