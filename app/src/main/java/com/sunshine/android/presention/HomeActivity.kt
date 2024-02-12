@@ -83,7 +83,9 @@ fun Main() {
 @Composable
 fun Profile(info: UserInfo, modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier.border(color = Brown, width = 2.dp, shape = RectangleShape),
+        modifier = Modifier
+            .border(color = Brown, width = 2.dp, shape = RectangleShape)
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     )
     {
