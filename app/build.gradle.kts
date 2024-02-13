@@ -66,6 +66,6 @@ dependencies {
 
     kapt(libs.hilt.compiler)
     kapt(libs.hilt.ext.compiler)
-    kapt(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
 }
