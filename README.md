@@ -1,3 +1,10 @@
+## 기술적인 목표
+- Jetpack Compose
+- Clean Architecture
+- Hilt
+- Flow
+- Navigation
+
 ## Convention
 ### 🗒️ PR Title
 `[<타입>-#<issue num>] <title>`
