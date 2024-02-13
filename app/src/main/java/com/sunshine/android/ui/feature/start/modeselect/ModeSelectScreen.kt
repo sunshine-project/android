@@ -50,11 +50,7 @@ internal fun ModeSelectScreen(
     onFreeModeClick: () -> Unit,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .clickable {
-
-            }
+        modifier = modifier.fillMaxSize()
     ) {
         Image(
             modifier = modifier.fillMaxSize(),
