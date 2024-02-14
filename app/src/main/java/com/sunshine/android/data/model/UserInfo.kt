@@ -1,4 +1,4 @@
-package com.sunshine.android.data
+package com.sunshine.android.data.model
 
 data class UserInfo(
     val name: String,
