@@ -37,8 +37,6 @@ fun CustomDialog(comment: String, onDismiss: () -> Unit) {
             ),
         ) {
             Box() {
-
-
                 Image(
                     painter = painterResource(id = R.drawable.img_paper_shadow),
                     contentDescription = "Base Image",

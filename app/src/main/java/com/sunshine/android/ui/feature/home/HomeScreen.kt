@@ -62,104 +62,101 @@ fun Main(day: Int) {
     var showKnifeDialog by remember { mutableStateOf(false) }
     var showQuestionMartDialog by remember { mutableStateOf(false) }
 
-    Surface(
-//        modifier = Modifier.width(IntrinsicSize.Max)
-
-    ) {
+    Surface() {
         Image(
             painter = painterResource(id = R.drawable.img_battleground),
             contentDescription ="배경",
             modifier = Modifier.fillMaxHeight().size(1600.dp),
-        alignment = Alignment.Center,
-        contentScale = ContentScale.Crop)
+            alignment = Alignment.Center,
+            contentScale = ContentScale.Crop)
         Surface(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp),
-             color = Color.Transparent // This is what you're missing
+            color = Color.Transparent // This is what you're missing
         ){
-        Column(
-            modifier = Modifier
-                .padding(top = 10.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.btn_quest),
-                contentDescription = "Quest",
+            Column(
                 modifier = Modifier
-                    .padding(5.dp)
-                    .width(60.dp)
-                    .fillMaxWidth()
-                    .clickable { }
-            )
-            Image(
-                painter = painterResource(id = R.drawable.btn_diary),
-                contentDescription = "Diary",
-                modifier = Modifier
-                    .padding(5.dp)
-                    .width(60.dp)
-                    .fillMaxWidth()
-                    .clickable { }
-            )
-        }
-
-        Column(
-            horizontalAlignment = Alignment.End,
-            modifier = Modifier.padding(10.dp),
-        ) {
-            Text(
-                text = "왕국 멸망까지",
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.titleSmall
-            )
-            Text(
-                text = "D-${day}",
-                textAlign = TextAlign.End,
-                color = Red,
-                style = MaterialTheme.typography.titleSmall
-            )
-        }
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.padding(top = 100.dp)
-            ) {
-            Image(
-                painter = painterResource(id = R.drawable.btn_knife),
-                contentDescription = "knife",
-                modifier = Modifier
-                    .padding(top = 40.dp, end = 120.dp)
-                    .width(100.dp)
-                    .fillMaxWidth()
-                    .clickable { showKnifeDialog = true }
-            )
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(top = 50.dp)
+                    .padding(top = 10.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.quest),
-                    contentDescription = "quest",
+                    painter = painterResource(id = R.drawable.btn_quest),
+                    contentDescription = "Quest",
                     modifier = Modifier
-                        .padding(bottom = 200.dp)
-                        .size(50.dp)
-                        .clickable { showQuestionMartDialog = true }
+                        .padding(5.dp)
+                        .width(60.dp)
+                        .fillMaxWidth()
+                        .clickable { }
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.img_user1),
-                    contentDescription = "player",
+                    painter = painterResource(id = R.drawable.btn_diary),
+                    contentDescription = "Diary",
                     modifier = Modifier
-                        .size(250.dp)
+                        .padding(5.dp)
+                        .width(60.dp)
+                        .fillMaxWidth()
+                        .clickable { }
                 )
             }
 
-        }
-        if (showKnifeDialog) {
-            CustomDialog("아직 검을 뽑을 수 없어요!",onDismiss = { showKnifeDialog = false })
-        }
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier.padding(10.dp),
+            ) {
+                Text(
+                    text = "왕국 멸망까지",
+                    textAlign = TextAlign.End,
+                    style = MaterialTheme.typography.titleSmall
+                )
+                Text(
+                    text = "D-${day}",
+                    textAlign = TextAlign.End,
+                    color = Red,
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.padding(top = 100.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.btn_knife),
+                    contentDescription = "knife",
+                    modifier = Modifier
+                        .padding(top = 40.dp, end = 120.dp)
+                        .width(100.dp)
+                        .fillMaxWidth()
+                        .clickable { showKnifeDialog = true }
+                )
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(top = 50.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.quest),
+                        contentDescription = "quest",
+                        modifier = Modifier
+                            .padding(bottom = 200.dp)
+                            .size(50.dp)
+                            .clickable { showQuestionMartDialog = true }
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.img_user1),
+                        contentDescription = "player",
+                        modifier = Modifier
+                            .size(250.dp)
+                    )
+                }
+
+            }
+            if (showKnifeDialog) {
+                CustomDialog("아직 검을 뽑을 수 없어요!",onDismiss = { showKnifeDialog = false })
+            }
             if (showQuestionMartDialog) {
                 CustomDialog("완료하지 않은 퀘스트가 있어요!",onDismiss = { showQuestionMartDialog = false })
             }
-    }
+        }
     }
 }
 
@@ -224,9 +221,3 @@ fun PreviewProfile() {
 fun PreviewHomeScreen() {
     HomeScreen(Modifier.fillMaxSize())
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewMain() {
-//    Main(70)
-//}
