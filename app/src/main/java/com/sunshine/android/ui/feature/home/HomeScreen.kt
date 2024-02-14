@@ -4,14 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -62,6 +60,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 fun Main(day: Int) {
 
     var showKnifeDialog by remember { mutableStateOf(false) }
+    var showQuestionMartDialog by remember { mutableStateOf(false) }
 
     Surface(
 //        modifier = Modifier.width(IntrinsicSize.Max)
@@ -119,29 +118,31 @@ fun Main(day: Int) {
                 style = MaterialTheme.typography.titleSmall
             )
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-        ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.padding(top = 100.dp)
+            ) {
             Image(
                 painter = painterResource(id = R.drawable.btn_knife),
                 contentDescription = "knife",
                 modifier = Modifier
-                    .padding(top = 40.dp)
+                    .padding(top = 40.dp, end = 120.dp)
                     .width(100.dp)
                     .fillMaxWidth()
                     .clickable { showKnifeDialog = true }
             )
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .padding(top = 50.dp)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.quest),
                     contentDescription = "quest",
                     modifier = Modifier
+                        .padding(bottom = 200.dp)
                         .size(50.dp)
-                        .clickable { }
+                        .clickable { showQuestionMartDialog = true }
                 )
                 Image(
                     painter = painterResource(id = R.drawable.img_user1),
@@ -153,8 +154,11 @@ fun Main(day: Int) {
 
         }
         if (showKnifeDialog) {
-            MinimalDialog(onDismiss = { showKnifeDialog = false })
+            CustomDialog("아직 검을 뽑을 수 없어요!",onDismiss = { showKnifeDialog = false })
         }
+            if (showQuestionMartDialog) {
+                CustomDialog("완료하지 않은 퀘스트가 있어요!",onDismiss = { showQuestionMartDialog = false })
+            }
     }
     }
 }
