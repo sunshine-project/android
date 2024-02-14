@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.compose.activity)
+    debugImplementation(libs.androidx.ui.tooling)
 
     kapt(libs.hilt.compiler)
     kapt(libs.hilt.ext.compiler)
