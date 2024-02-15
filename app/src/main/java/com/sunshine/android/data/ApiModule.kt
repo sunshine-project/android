@@ -1,9 +1,9 @@
 package com.sunshine.android.data
 
 import com.sunshine.android.BuildConfig
-import com.sunshine.android.data.repository.MainRepository
+import com.sunshine.android.data.repository.QuestRepository
 import com.sunshine.android.data.repository.UserRepository
-import com.sunshine.android.data.service.ApiService
+import com.sunshine.android.data.service.QuestService
 import com.sunshine.android.data.service.UserService
 import dagger.Module
 import dagger.Provides
@@ -45,22 +45,21 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
     fun provideUserService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideQuestService(retrofit: Retrofit): QuestService {
+        return retrofit.create(QuestService::class.java)
+    }
+
     @Singleton
     @Provides
-    fun provideMainRepository(apiService:ApiService)= MainRepository(apiService)
-
+    fun provideUserRepository(apiService: UserService) = UserRepository(apiService)
 
     @Singleton
     @Provides
-    fun provideUserRepository(apiService:UserService)= UserRepository(apiService)
+    fun provideQuestRepository(apiService: QuestService) = QuestRepository(apiService)
 }
