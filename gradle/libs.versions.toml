@@ -8,6 +8,10 @@ androidxNavigation = "2.7.7"
 androidxLifecycle = "2.7.0"
 kotlin = "1.9.22"
 
+retrofit = "2.9.0"
+converterGson = "2.4.0"
+logging-interceptor = "4.5.0"
+
 hilt = "2.50"
 hiltExt = "1.1.0"
 androidxHiltNavigationCompose = "1.1.0"
@@ -34,6 +38,10 @@ hilt-android-gradlePlugin = { module = "com.google.dagger:hilt-android-gradle-pl
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+
+retrofit2 = { group = "com.squareup.retrofit2", name ="retrofit", version.ref = "retrofit" }
+converterGson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
+loggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging-interceptor"}
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
