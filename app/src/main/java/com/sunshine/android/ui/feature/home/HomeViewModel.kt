@@ -2,7 +2,6 @@ package com.sunshine.android.ui.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sunshine.android.data.dto.HomeResponseDto
 import com.sunshine.android.data.dto.NetworkResult
 import com.sunshine.android.data.dto.asDomain
 import com.sunshine.android.data.model.UserInfo
@@ -21,8 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
-    private val _state: MutableStateFlow<State> = MutableStateFlow(State())
-    val state: StateFlow<State> = _state.asStateFlow()
+    private val _HomeScreenUiState: MutableStateFlow<State> = MutableStateFlow(State())
+    val HomeScreenUiState: StateFlow<State> = _HomeScreenUiState.asStateFlow()
 
 
     data class State(
@@ -32,11 +31,15 @@ class HomeViewModel @Inject constructor(private val repository: UserRepository) 
     )
 
     init {
+        getHome()
+    }
+
+    fun getHome() {
         viewModelScope.launch {
             val result = repository.getUser(1).onStart {
-                _state.update { state -> state.copy(loading = true) }
+                _HomeScreenUiState.update { state -> state.copy(loading = true) }
             }.catch {
-                _state.update { state ->
+                _HomeScreenUiState.update { state ->
                     state.copy(
                         loading = false,
                         error = true
@@ -45,16 +48,17 @@ class HomeViewModel @Inject constructor(private val repository: UserRepository) 
             }.collectLatest { result ->
                 when (result) {
                     is NetworkResult.Success -> {
-                        _state.update { state ->
+                        _HomeScreenUiState.update { state ->
                             state.copy(
                                 loading = false,
                                 user = result.value.asDomain()
                             )
                         }
                     }
+
                     else -> {}
                 }
+            }
         }
-    }
     }
 }

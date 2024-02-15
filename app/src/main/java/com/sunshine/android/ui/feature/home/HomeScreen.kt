@@ -13,17 +13,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
-import com.sunshine.android.data.model.UserInfo
 import com.sunshine.android.ui.theme.Brown
 import com.sunshine.android.ui.theme.Red
 import com.sunshine.android.ui.theme.Yellow
@@ -34,15 +35,20 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    HomeScreen(modifier = modifier)
+    val uiState: HomeViewModel.State by viewModel.HomeScreenUiState.collectAsStateWithLifecycle()
+    HomeScreen(modifier = modifier, uiState)
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, uiState: HomeViewModel.State) {
+
+    val scope = rememberCoroutineScope()
+
+
     Column(
         modifier = Modifier.border(color = Brown, width = 3.dp, shape = RectangleShape)
     ) {
-        Profile(UserInfo("david", 1, 10, 5, 3, 7))
+        Profile(uiState)
         Main(70)
     }
 }
@@ -97,7 +103,7 @@ fun Main(day: Int) {
 }
 
 @Composable
-fun Profile(info: UserInfo, modifier: Modifier = Modifier) {
+fun Profile(uiState: HomeViewModel.State, modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
             .border(color = Brown, width = 2.dp, shape = RectangleShape)
@@ -118,41 +124,41 @@ fun Profile(info: UserInfo, modifier: Modifier = Modifier) {
         )
         {
             Text(
-                text = "Name: ${info.name}",
+                text = "Name: ${uiState.user?.name}",
             )
             Text(
-                text = "Leve: ${info.level}",
+                text = "Leve: ${uiState.user?.level}",
             )
             Text(
                 text = "Stats: ",
             )
             Column(modifier = Modifier.padding(start = 30.dp)) {
                 Text(
-                    text = "STR: ${info.str}",
+                    text = "STR: ${uiState.user?.str}",
                 )
                 Text(
-                    text = "SPI: ${info.spi}",
+                    text = "SPI: ${uiState.user?.spi}",
                 )
                 Text(
-                    text = "PEA: ${info.pea}",
+                    text = "PEA: ${uiState.user?.pea}",
                 )
                 Text(
-                    text = "KNO: ${info.kno}",
+                    text = "KNO: ${uiState.user?.kno}",
                 )
             }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewProfile() {
-    Profile(UserInfo("david", 1, 10, 5, 3, 7), Modifier.fillMaxSize())
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewHomeScreen() {
-    HomeScreen(Modifier.fillMaxSize())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewProfile() {
+//    Profile(UserInfo("david", 1, 10, 5, 3, 7), Modifier.fillMaxSize())
+//}
+//
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewHomeScreen() {
+//    HomeScreen(Modifier.fillMaxSize(), viewModel)
+//}
