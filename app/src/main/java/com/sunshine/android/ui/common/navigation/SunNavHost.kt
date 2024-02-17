@@ -6,20 +6,20 @@ import androidx.navigation.compose.NavHost
 import com.sunshine.android.ui.common.SunAppState
 import com.sunshine.android.ui.feature.home.navigation.homeScreen
 import com.sunshine.android.ui.feature.home.navigation.navigateToHome
-import com.sunshine.android.ui.feature.onboard.navigation.ONBOARD_ROUTE
+import com.sunshine.android.ui.feature.onboard.navigation.navigateToOnboard
 import com.sunshine.android.ui.feature.onboard.navigation.onboardScreen
-import com.sunshine.android.ui.feature.start.navigation.START_GRAPH_ROUTE_PATTERN
 import com.sunshine.android.ui.feature.start.modeselect.navigation.modeSelectScreen
 import com.sunshine.android.ui.feature.start.modeselect.navigation.navigateToModeSelect
 import com.sunshine.android.ui.feature.start.navigation.navigateToStartGraph
 import com.sunshine.android.ui.feature.start.navigation.startGraph
+import com.sunshine.android.ui.feature.story.navigation.STORY_ROUTE
 import com.sunshine.android.ui.feature.story.navigation.storyScreen
 
 @Composable
 fun SunNavHost(
     appState: SunAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = ONBOARD_ROUTE,
+    startDestination: String = STORY_ROUTE,
 ) {
     val navController = appState.navController
     NavHost(
@@ -31,13 +31,13 @@ fun SunNavHost(
             onScreenClick = navController::navigateToModeSelect,
             nestedGraphs = {
                 modeSelectScreen(
-                    onNormalModeClick = navController::navigateToHome,
+                    onNormalModeClick = navController::navigateToOnboard,
                     onFreeModeClick = { },
                 )
             },
         )
-        storyScreen()
-        onboardScreen(onFinish = navController::navigateToStartGraph)
+        storyScreen(onFinish = navController::navigateToStartGraph)
+        onboardScreen(onFinish = navController::navigateToHome)
         homeScreen()
     }
 }

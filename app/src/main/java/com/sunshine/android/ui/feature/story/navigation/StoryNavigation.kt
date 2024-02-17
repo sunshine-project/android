@@ -9,10 +9,10 @@ import com.sunshine.android.ui.feature.story.StoryRoute
 const val STORY_ROUTE = "story_route"
 fun NavController.navigateToStory(navOptions: NavOptions) = navigate(STORY_ROUTE, navOptions)
 
-fun NavGraphBuilder.storyScreen() {
+fun NavGraphBuilder.storyScreen(onFinish: () -> Unit) {
     composable(
         route = STORY_ROUTE,
     ) {
-        StoryRoute()
+        StoryRoute(onFinish = onFinish)
     }
 }
