@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
+import com.sunshine.android.ui.common.component.SunDialog
 import com.sunshine.android.ui.theme.Brown
 import com.sunshine.android.ui.theme.Red
 import com.sunshine.android.ui.theme.Yellow
@@ -70,38 +71,36 @@ fun Main(day: Int) {
     Surface() {
         Image(
             painter = painterResource(id = R.drawable.img_battleground),
-            contentDescription ="배경",
-            modifier = Modifier.fillMaxHeight().size(1600.dp),
+            contentDescription = "배경",
+            modifier = Modifier
+                .fillMaxHeight()
+                .size(1600.dp),
             alignment = Alignment.Center,
-            contentScale = ContentScale.Crop)
+            contentScale = ContentScale.Crop
+        )
         Surface(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp),
             color = Color.Transparent // This is what you're missing
-        ){
+        ) {
             Column(
-                modifier = Modifier
-                    .padding(top = 10.dp)
+                modifier = Modifier.padding(top = 10.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.btn_quest),
+                Image(painter = painterResource(id = R.drawable.btn_quest),
                     contentDescription = "Quest",
                     modifier = Modifier
                         .padding(5.dp)
                         .width(60.dp)
                         .fillMaxWidth()
-                        .clickable { }
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.btn_diary),
+                        .clickable { })
+                Image(painter = painterResource(id = R.drawable.btn_diary),
                     contentDescription = "Diary",
                     modifier = Modifier
                         .padding(5.dp)
                         .width(60.dp)
                         .fillMaxWidth()
-                        .clickable { }
-                )
+                        .clickable { })
             }
 
             Column(
@@ -121,45 +120,37 @@ fun Main(day: Int) {
                 )
             }
             Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.padding(top = 100.dp)
+                contentAlignment = Alignment.Center, modifier = Modifier.padding(top = 100.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.btn_knife),
+                Image(painter = painterResource(id = R.drawable.btn_knife),
                     contentDescription = "knife",
                     modifier = Modifier
                         .padding(top = 40.dp, end = 120.dp)
                         .width(100.dp)
                         .fillMaxWidth()
-                        .clickable { showKnifeDialog = true }
-                )
+                        .clickable { showKnifeDialog = true })
                 Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .padding(top = 50.dp)
+                    contentAlignment = Alignment.Center, modifier = Modifier.padding(top = 50.dp)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.quest),
+                    Image(painter = painterResource(id = R.drawable.quest),
                         contentDescription = "quest",
                         modifier = Modifier
                             .padding(bottom = 200.dp)
                             .size(50.dp)
-                            .clickable { showQuestionMartDialog = true }
-                    )
+                            .clickable { showQuestionMartDialog = true })
                     Image(
-                        painter = painterResource(id = R.drawable.img_user1),
+                        painter = painterResource(id = R.drawable.img_character1),
                         contentDescription = "player",
-                        modifier = Modifier
-                            .size(250.dp)
+                        modifier = Modifier.size(128.dp)
                     )
                 }
 
             }
             if (showKnifeDialog) {
-                CustomDialog("아직 검을 뽑을 수 없어요!",onDismiss = { showKnifeDialog = false })
+                SunDialog("아직 검을 뽑을 수 없어요!", onDismiss = { showKnifeDialog = false })
             }
             if (showQuestionMartDialog) {
-                CustomDialog("완료하지 않은 퀘스트가 있어요!",onDismiss = { showQuestionMartDialog = false })
+                SunDialog("완료하지 않은 퀘스트가 있어요!", onDismiss = { showQuestionMartDialog = false })
             }
         }
     }
@@ -174,8 +165,7 @@ fun Profile(uiState: HomeViewModel.State, modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .background(color = Yellow),
         verticalAlignment = Alignment.CenterVertically
-    )
-    {
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ic_launcher_background),
             contentDescription = "Profile",
@@ -185,8 +175,7 @@ fun Profile(uiState: HomeViewModel.State, modifier: Modifier = Modifier) {
         )
         Column(
             modifier = Modifier.padding(30.dp)
-        )
-        {
+        ) {
             Text(
                 text = "Name: ${uiState.user?.name}",
             )
@@ -213,16 +202,3 @@ fun Profile(uiState: HomeViewModel.State, modifier: Modifier = Modifier) {
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewProfile() {
-//    Profile(UserInfo("david", 1, 10, 5, 3, 7), Modifier.fillMaxSize())
-//}
-//
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewHomeScreen() {
-//    HomeScreen(Modifier.fillMaxSize(), viewModel)
-//}
