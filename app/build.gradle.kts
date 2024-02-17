@@ -22,6 +22,10 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -69,4 +73,8 @@ dependencies {
     kapt(libs.hilt.ext.compiler)
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation(libs.retrofit2)
+    implementation(libs.converterGson)
+    implementation(libs.loggingInterceptor)
 }
