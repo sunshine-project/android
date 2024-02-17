@@ -18,7 +18,7 @@ fun TypewriterText(
     modifier: Modifier = Modifier,
     text: String,
     style: TextStyle,
-    speed: Long = 50,
+    speed: Long = 30,
     onFinish: () -> Unit = {},
 ) {
     var textToDisplay by rememberSaveable {

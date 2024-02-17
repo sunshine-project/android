@@ -72,5 +72,16 @@
 
     <string name="start_title">SUNSHINE</string>
     <string name="start_tap_to_start">- TAP TO START -</string>
+    <string name="tutorial_content_1">본격적인 여정에 앞서 \n플레이 방법을 간단하게 \n설명해드릴게요. \n\n(아무 곳이나 클릭)</string>
+    <string name="tutorial_content_2">상단의 화면을 통해\n용사님의 현재 상태를 \n확인할 수 있어요.</string>
+    <string name="tutorial_content_3">세상을 구하기 위해서는\n균형잡힌 스탯이 중요해요.</string>
+    <string name="tutorial_content_4">모든 스탯이 100을 넘어야 \n태양검을 뽑을 자격이 생긴답니다.</string>
+    <string name="tutorial_content_5">왕국 멸망 까지는 단 70일 밖에 \n남지 않았으니 서둘러야 해요.</string>
+    <string name="tutorial_content_6">매일 주어지는 퀘스트를 수행하면\n스탯과 경험치를 얻을 수 있답니다.</string>
+    <string name="tutorial_content_7">좌측 상단의 퀘스트 스크롤을 누르면\n퀘스트 목록으로 이동할 수 있어요!</string>
+    <string name="tutorial_content_8">목록에서는 현재 진행 중인 퀘스트,\n완료된 퀘스트 등을 확인할 수 있어요.</string>
+    <string name="tutorial_content_9">바로 밑에는 용사님의 여정을 담은 \n일지가 있어요!</string>
+    <string name="tutorial_content_10">일지를 통해서 모험을 기록하고,\n모험 환경을 설정할 수 있어요.</string>
+    <string name="tutorial_content_11">오, 오늘의 퀘스트가 주어진거 같네요!\n한번 확인해볼까요?</string>
 
 </resources>
