@@ -1,6 +1,6 @@
 package com.sunshine.android.data.model
 
-data class UserInfo(
+data class UserModel(
     val name: String,
     val level: Int,
     val str: Int,

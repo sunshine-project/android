@@ -9,8 +9,8 @@ androidxLifecycle = "2.7.0"
 kotlin = "1.9.22"
 
 retrofit = "2.9.0"
-converterGson = "2.4.0"
-logging-interceptor = "4.5.0"
+converterGson = "2.9.0"
+logging-interceptor = "4.12.0"
 
 hilt = "2.50"
 hiltExt = "1.1.0"

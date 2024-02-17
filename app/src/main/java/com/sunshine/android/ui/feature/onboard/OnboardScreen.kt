@@ -53,7 +53,7 @@ internal fun OnboardRoute(
     modifier: Modifier = Modifier,
     viewModel: OnboardViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.onboardUiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
 
     OnboardScreen(

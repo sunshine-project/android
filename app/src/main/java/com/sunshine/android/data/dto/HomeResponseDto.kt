@@ -1,6 +1,6 @@
 package com.sunshine.android.data.dto
 
-import com.sunshine.android.data.model.UserInfo
+import com.sunshine.android.data.model.UserModel
 
 data class HomeResponseDto(
     val characterType: String,
@@ -23,7 +23,7 @@ data class HomeResponseDto(
     )
 }
 
-fun HomeResponseDto.asDomain() = UserInfo(
+fun HomeResponseDto.asDomain() = UserModel(
     name = name,
     pea = stat.pea,
     spi = stat.spi,

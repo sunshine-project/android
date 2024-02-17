@@ -15,32 +15,32 @@ class OnboardViewModel @Inject constructor(
 ) : ViewModel() {
     private val _dialogIterator = onboardDialogResources.iterator()
 
-    private val _onboardUiState = MutableStateFlow(
+    private val _uiState = MutableStateFlow(
         OnboardUiState(currentDialog = _dialogIterator.next())
     )
-    val onboardUiState: StateFlow<OnboardUiState> = _onboardUiState.asStateFlow()
+    val uiState: StateFlow<OnboardUiState> = _uiState.asStateFlow()
 
     private val _error = MutableStateFlow<String?>(null)
     val error = _error.asStateFlow()
 
     private fun nextDialog() {
         if (!_dialogIterator.hasNext()) return
-        _onboardUiState.update {
+        _uiState.update {
             it.copy(isShowAnswer = false, currentDialog = _dialogIterator.next())
         }
     }
 
     fun showAnswer() {
-        _onboardUiState.update {
+        _uiState.update {
             it.copy(isShowAnswer = true)
         }
     }
 
     fun nextDialogOrEvent() {
         _error.value = null
-        if (onboardUiState.value.currentDialog.event != null) {
-            _onboardUiState.update {
-                it.copy(currentEvent = onboardUiState.value.currentDialog.event)
+        if (uiState.value.currentDialog.event != null) {
+            _uiState.update {
+                it.copy(currentEvent = uiState.value.currentDialog.event)
             }
             return
         }
@@ -49,7 +49,7 @@ class OnboardViewModel @Inject constructor(
 
     fun registerName(name: String) {
         if (name.isNotBlank() && name.length <= 13) {
-            _onboardUiState.update {
+            _uiState.update {
                 it.copy(currentEvent = null, name = name)
             }
             nextDialog()
@@ -57,22 +57,22 @@ class OnboardViewModel @Inject constructor(
     }
 
     fun registerGender(gender: Int) {
-        _onboardUiState.update {
+        _uiState.update {
             it.copy(currentEvent = null, gender = gender)
         }
         nextDialog()
     }
 
     fun registerWarning(response: Boolean) {
-        _onboardUiState.value.run {
+        _uiState.value.run {
             if (currentWarningPage == 3) {
-                _onboardUiState.update {
+                _uiState.update {
                     it.copy(currentEvent = null)
                 }
                 nextDialog()
                 if (warning < 2) nextDialog()
             } else {
-                _onboardUiState.update {
+                _uiState.update {
                     it.copy(
                         currentWarningPage = currentWarningPage + 1,
                         warning = if (!response) warning + 1 else warning
@@ -83,8 +83,8 @@ class OnboardViewModel @Inject constructor(
     }
 
     fun registerStat(response: Int) {
-        _onboardUiState.value.run {
-            _onboardUiState.update {
+        _uiState.value.run {
+            _uiState.update {
                 it.copy(
                     stat = stat.mapIndexed { index, i ->
                         if (index == currentStatPage) when (response) {
@@ -95,12 +95,12 @@ class OnboardViewModel @Inject constructor(
                 )
             }
             if (currentStatPage == 3) {
-                _onboardUiState.update {
+                _uiState.update {
                     it.copy(currentEvent = null)
                 }
                 nextDialog()
             } else {
-                _onboardUiState.update {
+                _uiState.update {
                     it.copy(currentStatPage = currentStatPage + 1)
                 }
             }
