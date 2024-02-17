@@ -22,6 +22,10 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -63,9 +67,14 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.compose.activity)
+    debugImplementation(libs.androidx.ui.tooling)
 
     kapt(libs.hilt.compiler)
     kapt(libs.hilt.ext.compiler)
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation(libs.retrofit2)
+    implementation(libs.converterGson)
+    implementation(libs.loggingInterceptor)
 }
