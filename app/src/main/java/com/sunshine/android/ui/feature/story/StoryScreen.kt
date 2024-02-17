@@ -1,6 +1,5 @@
 package com.sunshine.android.ui.feature.story
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,31 +14,48 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
 import com.sunshine.android.ui.theme.DarkBrown
 import com.sunshine.android.ui.theme.LightBrown
 import com.sunshine.android.ui.theme.Typography
+import com.sunshine.android.util.AnimatedImage
+import com.sunshine.android.util.TypewriterText
 
 @Composable
 internal fun StoryRoute(
+    onFinish: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: StoryViewModel = hiltViewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     StoryScreen(
+        onNextClick = {
+            viewModel.nextPageIfAvailable().takeIf { it } ?: onFinish()
+        },
+        uiState = uiState,
+        onShowNextButton = viewModel::showNextButton,
         modifier = modifier,
     )
 }
 
 @Composable
 internal fun StoryScreen(
+    onNextClick: () -> Unit,
+    uiState: StoryUiState,
+    onShowNextButton: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -47,29 +63,34 @@ internal fun StoryScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            modifier = modifier.weight(1f),
-            contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+        AnimatedImage(
+            modifier = modifier
+                .weight(1f)
+                .fillMaxWidth(),
             contentDescription = "story image",
-            painter = painterResource(id = R.drawable.img_story_1)
+            painter = painterResource(id = uiState.currentStory.imageRes)
         )
         Column(
             modifier = modifier
                 .background(color = LightBrown)
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 36.dp), horizontalAlignment = Alignment.End
+                .padding(horizontal = 24.dp, vertical = 36.dp),
+            horizontalAlignment = Alignment.End,
         ) {
-            Text(
-                modifier = modifier,
-                text = "태초에 여러 신들이 있었다.\n" + "인간 창조에 관여한 신은 4명이며, \n" + "이들은 각각 생명, 정신, 평화, 지식의 신이다.",
+            TypewriterText(
+                modifier = modifier.fillMaxWidth(),
+                text = uiState.currentStory.content,
                 style = Typography.bodyMedium.copy(
                     color = colorResource(id = R.color.white), lineHeight = 32.sp, fontSize = 20.sp
-                )
+                ),
+                onFinish = onShowNextButton
             )
             Spacer(modifier = modifier.height(24.dp))
             ElevatedButton(
-                modifier = modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
-                onClick = { },
+                modifier = modifier
+                    .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp)
+                    .alpha(if (uiState.isShowNextButton) 1f else 0f),
+                onClick = onNextClick,
                 colors = ButtonColors(
                     contentColor = Color.White,
                     containerColor = DarkBrown,
@@ -78,7 +99,12 @@ internal fun StoryScreen(
                 ),
                 shape = RoundedCornerShape(0.dp),
             ) {
-                Text(text = "NEXT", style = Typography.bodyMedium.copy(fontSize = 20.sp))
+                Text(
+                    text = if (uiState.currentStory.isLastPage) stringResource(R.string.common_start) else stringResource(
+                        R.string.common_next
+                    ),
+                    style = Typography.bodyMedium.copy(fontSize = 20.sp)
+                )
             }
         }
     }
