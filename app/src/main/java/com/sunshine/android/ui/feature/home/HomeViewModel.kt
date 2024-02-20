@@ -29,14 +29,14 @@ class HomeViewModel @Inject constructor(private val repository: UserRepository) 
                 loading = false, user = UserModel(
                     name = "John Doe",
                     gender = 1,
-                    level = 20,
+                    level = 5,
                     str = 70,
                     spi = 88,
                     pea = 91,
                     kno = 68,
                     exp = 89,
                     expLeft = 100,
-                ), showTutorial = false, daysLeft = 70
+                ), showTutorial = false, daysLeft = 3
             )
         }
 //        viewModelScope.launch {
