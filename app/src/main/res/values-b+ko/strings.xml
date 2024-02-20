@@ -83,9 +83,14 @@
     <string name="tutorial_content_9">바로 밑에는 용사님의 여정을 담은 \n일지가 있어요!</string>
     <string name="tutorial_content_10">일지를 통해서 모험을 기록하고,\n모험 환경을 설정할 수 있어요.</string>
     <string name="tutorial_content_11">오, 오늘의 퀘스트가 주어진거 같네요!\n한번 확인해볼까요?</string>
+
     <string name="home_until_kingdom_falls">왕국 멸망까지</string>
     <string name="home_loading_user">유저를 불러오는 중입니다…</string>
-    <string name="home_cannot_pull_sword">모든 스탯이 100을 넘어야  태양검을 뽑을 자격이 생긴답니다.</string>
+    <string name="home_cannot_pull_sword">모든 스탯이 100을 넘어야 태양검을 뽑을 자격이 생긴답니다.</string>
+    <string name="home_can_pull_sword">태양검을 뽑을 수 있습니다. 시도 하시겠습니까?</string>
+    <string name="home_the_end_title">끝이 아닌 시작</string>
+    <string name="home_the_end">용사님의 세계는 이제 시작입니다. 용사님의 일지를 바탕으로 새로운 여정들을 추려보았습니다.</string>
+
     <string name="common_close">닫기</string>
     <string name="queset_complete_quest">퀘스트 완료하기</string>
     <string name="quest_congrats">축하합니다! \n퀘스트를 달성했습니다!</string>

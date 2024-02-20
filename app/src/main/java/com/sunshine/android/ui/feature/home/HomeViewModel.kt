@@ -1,8 +1,8 @@
 package com.sunshine.android.ui.feature.home
 
 import androidx.lifecycle.ViewModel
-import com.sunshine.android.domain.model.UserModel
 import com.sunshine.android.data.repository.UserRepository
+import com.sunshine.android.domain.model.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,16 +27,16 @@ class HomeViewModel @Inject constructor(private val repository: UserRepository) 
         _uiState.update {
             it.copy(
                 loading = false, user = UserModel(
-                    name = "John Doe",
+                    name = "David",
                     gender = 1,
-                    level = 1,
-                    str = 15,
-                    spi = 24,
-                    pea = 27,
-                    kno = 19,
-                    exp = 40,
+                    level = 5,
+                    str = 100,
+                    spi = 100,
+                    pea = 100,
+                    kno = 100,
+                    exp = 100,
                     expLeft = 100,
-                ), showTutorial = false, daysLeft = 70
+                ), showTutorial = false, daysLeft = 3
             )
         }
 //        viewModelScope.launch {

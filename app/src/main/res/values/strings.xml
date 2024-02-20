@@ -83,9 +83,14 @@
     <string name="tutorial_content_9">Right below is a Diary containing your journey!</string>
     <string name="tutorial_content_10">You can keep track of your adventures, set up an adventure environment in your Diary.</string>
     <string name="tutorial_content_11">it sounds like a quest has been given today! Shall we check it out?</string>
+
     <string name="home_until_kingdom_falls">Kingdom falls in</string>
     <string name="home_loading_user">Loading user…</string>
     <string name="home_cannot_pull_sword">Every stat has to exceed 100 to be eligible to pull out a Sun Sword.</string>
+    <string name="home_can_pull_sword">You can pull out the "sun sword". Would you like to draw on?</string>
+    <string name="home_the_end_title">The beginning after the end</string>
+    <string name="home_the_end">Your world is just beginning. Based on the your journal, I\'ve selected new journeys..</string>
+
     <string name="common_close">CLOSE</string>
     <string name="queset_complete_quest">COMPLETE QUEST</string>
     <string name="quest_congrats">Congrats! \nYou completed the quest!</string>

@@ -2,17 +2,12 @@ package com.sunshine.android.ui.common.component
 
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
@@ -23,13 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
-import androidx.compose.ui.layout.ContentScale.Companion.FillHeight
-import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
-import androidx.compose.ui.layout.ContentScale.Companion.Fit
-import androidx.compose.ui.layout.ContentScale.Companion.Inside
-import androidx.compose.ui.layout.ContentScale.Companion.None
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -44,7 +33,7 @@ import com.sunshine.android.util.TypewriterText
 
 @Composable
 fun SunDialog(comment: String, onDismiss: () -> Unit) {
-    Dialog(onDismissRequest = onDismiss) {
+    Dialog(onDismissRequest = {}) { // 빈 공간을 클릭해도 다이얼로그가 닫히지 않도록 onDismissRequest를 무시합니다.
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -53,7 +42,9 @@ fun SunDialog(comment: String, onDismiss: () -> Unit) {
                 containerColor = Color.Transparent
             ),
         ) {
-            Box {
+            Box(
+//                modifier = Modifier.clickable { } // 빈 공간을 클릭해도 아무런 동작을 하지 않도록 clickable을 추가합니다.
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.img_paper_shadow),
                     contentDescription = "Base Image",
@@ -79,7 +70,13 @@ fun SunDialog(comment: String, onDismiss: () -> Unit) {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
+                    // ElevatedButton에만 클릭 가능한 영역을 제한합니다.
                     ElevatedButton(
+//                        modifier = Modifier
+//                            .align(Alignment.CenterHorizontally)
+//                            .clickable { onDismiss() }, // 버튼을 클릭했을 때만 onDismiss 함수를 호출합니다.
+//                        onClick = { },
+
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         onClick = {
                             onDismiss()

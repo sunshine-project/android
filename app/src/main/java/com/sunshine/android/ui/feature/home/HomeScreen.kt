@@ -43,6 +43,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
 import com.sunshine.android.domain.model.UserModel
 import com.sunshine.android.ui.common.component.SunDialog
+import com.sunshine.android.ui.feature.ending.EndingDialog
 import com.sunshine.android.ui.feature.home.diary.DiaryDialog
 import com.sunshine.android.ui.feature.home.quest.QuestDialog
 import com.sunshine.android.ui.theme.Brown
@@ -132,6 +133,7 @@ private fun Main(
     var showQuestDialog by rememberSaveable { mutableStateOf(false) }
     var showDiaryDialog by rememberSaveable { mutableStateOf(false) }
     var showSwordDialog by rememberSaveable { mutableStateOf(false) }
+    var showEndingDialog by rememberSaveable { mutableStateOf(false) }
 
     Box {
         Image(
@@ -246,8 +248,14 @@ private fun Main(
                 }
             }
             if (showSwordDialog) {
-                SunDialog(stringResource(R.string.home_cannot_pull_sword),
-                    onDismiss = { showSwordDialog = false })
+                SunDialog(
+                    stringResource(R.string.home_can_pull_sword),
+//                    stringResource(R.string.home_cannot_pull_sword), //여기 주석
+                    onDismiss = {
+                        showSwordDialog = false
+                        showEndingDialog = true //여기 주석
+                    }
+                )
             }
             if (showQuestDialog) {
                 QuestDialog(onDismiss = { showQuestDialog = false }, onQuestClick = {
@@ -259,6 +267,12 @@ private fun Main(
                 DiaryDialog(onDismiss = { showDiaryDialog = false }, onLogout = {
                     showDiaryDialog = false
                     onLogout()
+                })
+            }
+
+            if (showEndingDialog) {
+                EndingDialog(onDismiss = {
+                    showEndingDialog = false
                 })
             }
         }
