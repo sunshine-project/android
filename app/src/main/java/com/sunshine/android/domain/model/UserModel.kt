@@ -1,4 +1,4 @@
-package com.sunshine.android.data.model
+package com.sunshine.android.domain.model
 
 data class UserModel(
     val name: String,
@@ -7,4 +7,7 @@ data class UserModel(
     val spi: Int,
     val pea: Int,
     val kno: Int,
+    val gender: Int,
+    val exp: Int,
+    val expLeft: Int,
 )

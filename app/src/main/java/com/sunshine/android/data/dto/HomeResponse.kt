@@ -1,8 +1,8 @@
 package com.sunshine.android.data.dto
 
-import com.sunshine.android.data.model.UserModel
+import com.sunshine.android.domain.model.UserModel
 
-data class HomeResponseDto(
+data class HomeResponse(
     val characterType: String,
     val exclusiveRange: Int,
     val experiencePoint: Int,
@@ -13,7 +13,7 @@ data class HomeResponseDto(
     val name: String,
     val stat: Stat,
     val uncompletedQuestSize: Int
-){
+) {
     data class Stat(
         val ableToEndGame: Boolean,
         val pea: Int,
@@ -23,11 +23,18 @@ data class HomeResponseDto(
     )
 }
 
-fun HomeResponseDto.asDomain() = UserModel(
+fun HomeResponse.asUserModel() = UserModel(
     name = name,
     pea = stat.pea,
     spi = stat.spi,
     str = stat.str,
     kno = stat.skl,
-    level = level
+    level = level,
+    gender = when (characterType) {
+        "A" -> 1
+        "B" -> 2
+        else -> 3
+    },
+    exp = experiencePoint,
+    expLeft = exclusiveRange
 )

@@ -11,12 +11,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.delay
 
 @Composable
 fun TypewriterText(
     modifier: Modifier = Modifier,
     text: String,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
+    overflow: TextOverflow = TextOverflow.Clip,
     style: TextStyle,
     speed: Long = 30,
     onFinish: () -> Unit = {},
@@ -43,11 +47,17 @@ fun TypewriterText(
             modifier = modifier,
             text = textToDisplay,
             style = style,
+            maxLines = maxLines,
+            minLines = minLines,
+            overflow = overflow,
         )
         Text(
             modifier = modifier.alpha(0f),
             text = text,
             style = style,
+            maxLines = maxLines,
+            minLines = minLines,
+            overflow = overflow,
         )
     }
 }

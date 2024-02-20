@@ -1,8 +1,7 @@
-package com.sunshine.android.data
+package com.sunshine.android.data.di
 
 import com.sunshine.android.BuildConfig
 import com.sunshine.android.data.repository.QuestRepository
-import com.sunshine.android.data.repository.UserRepository
 import com.sunshine.android.data.service.QuestService
 import com.sunshine.android.data.service.UserService
 import dagger.Module
@@ -15,12 +14,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+const val BASE_URL = "http://35.216.8.32:8080/api/v1/"
+
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-    @Provides
-    fun provideBaseUrl() = "http://35.216.8.32:8080"
-
     @Singleton
     @Provides
     fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
@@ -38,7 +36,7 @@ object ApiModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(provideBaseUrl())
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -55,11 +53,11 @@ object ApiModule {
         return retrofit.create(QuestService::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun provideUserRepository(apiService: UserService) = UserRepository(apiService)
+//    @Singleton
+//    @Provides
+//    fun provideUserRepository(apiService: UserService) = UserRepository(apiService)
 
-    @Singleton
-    @Provides
-    fun provideQuestRepository(apiService: QuestService) = QuestRepository(apiService)
+//    @Singleton
+//    @Provides
+//    fun provideQuestRepository(apiService: QuestService) = QuestRepository(apiService)
 }

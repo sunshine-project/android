@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.compose.activity)
+    implementation(libs.androidx.datastore.preferences)
     debugImplementation(libs.androidx.ui.tooling)
 
     kapt(libs.hilt.compiler)
@@ -77,4 +78,7 @@ dependencies {
     implementation(libs.retrofit2)
     implementation(libs.converterGson)
     implementation(libs.loggingInterceptor)
+//    implementation(libs.accompanist.pager)
+//    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.coil.compose)
 }
