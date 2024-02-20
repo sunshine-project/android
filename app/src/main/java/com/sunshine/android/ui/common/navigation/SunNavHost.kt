@@ -4,10 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.sunshine.android.ui.common.SunAppState
-import com.sunshine.android.ui.feature.home.navigation.homeScreen
-import com.sunshine.android.ui.feature.home.navigation.navigateToHome
+import com.sunshine.android.ui.feature.home.navigation.homeGraph
+import com.sunshine.android.ui.feature.home.navigation.navigateToHomeGraph
 import com.sunshine.android.ui.feature.onboard.navigation.navigateToOnboard
 import com.sunshine.android.ui.feature.onboard.navigation.onboardScreen
+import com.sunshine.android.ui.feature.quest.navigation.navigateToQuest
+import com.sunshine.android.ui.feature.quest.navigation.questScreen
 import com.sunshine.android.ui.feature.start.modeselect.navigation.modeSelectScreen
 import com.sunshine.android.ui.feature.start.modeselect.navigation.navigateToModeSelect
 import com.sunshine.android.ui.feature.start.navigation.navigateToStartGraph
@@ -31,13 +33,17 @@ fun SunNavHost(
             onScreenClick = navController::navigateToModeSelect,
             nestedGraphs = {
                 modeSelectScreen(
-                    onNormalModeClick = navController::navigateToOnboard,
+                    onNormalModeClick = navController::navigateToHomeGraph,
                     onFreeModeClick = { },
                 )
             },
         )
         storyScreen(onFinish = navController::navigateToStartGraph)
-        onboardScreen(onFinish = navController::navigateToHome)
-        homeScreen()
+        onboardScreen(onFinish = navController::navigateToHomeGraph)
+        homeGraph(onQuestClick = navController::navigateToQuest,
+            onLogout = navController::navigateToStartGraph,
+            nestedGraphs = {
+                questScreen(onFinish = navController::popBackStack)
+            })
     }
 }

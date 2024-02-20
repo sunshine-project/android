@@ -20,6 +20,7 @@ import com.sunshine.android.ui.common.navigation.SunNavHost
 @Composable
 fun SunApp(
     appState: SunAppState = rememberSunAppState(),
+    startDestination: String,
 ) {
     Scaffold(
         containerColor = Color.Transparent,
@@ -37,7 +38,7 @@ fun SunApp(
                 ),
         ) {
             Column(Modifier.fillMaxSize()) {
-                SunNavHost(appState = appState)
+                SunNavHost(appState = appState, startDestination = startDestination)
             }
         }
     }

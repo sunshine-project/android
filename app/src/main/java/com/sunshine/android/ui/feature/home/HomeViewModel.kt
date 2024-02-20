@@ -1,20 +1,13 @@
 package com.sunshine.android.ui.feature.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.sunshine.android.data.dto.NetworkResult
-import com.sunshine.android.data.dto.asDomain
-import com.sunshine.android.data.model.UserModel
+import com.sunshine.android.domain.model.UserModel
 import com.sunshine.android.data.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,29 +24,46 @@ class HomeViewModel @Inject constructor(private val repository: UserRepository) 
     }
 
     private fun getHome() {
-        viewModelScope.launch {
-            val result = repository.getUser(1).onStart {
-                _uiState.update { state -> state.copy(loading = true) }
-            }.catch {
-                _uiState.update { state ->
-                    state.copy(
-                        loading = false, error = true
-                    )
-                }
-            }.collectLatest { result ->
-                when (result) {
-                    is NetworkResult.Success -> {
-                        _uiState.update { state ->
-                            state.copy(
-                                loading = false, user = result.value.asDomain()
-                            )
-                        }
-                    }
-
-                    else -> {}
-                }
-            }
+        _uiState.update {
+            it.copy(
+                loading = false, user = UserModel(
+                    name = "John Doe",
+                    gender = 1,
+                    level = 1,
+                    str = 15,
+                    spi = 24,
+                    pea = 27,
+                    kno = 19,
+                    exp = 40,
+                    expLeft = 100,
+                ), showTutorial = false, daysLeft = 70
+            )
         }
+//        viewModelScope.launch {
+//            val result = repository.getUser(1).onStart {
+//                _uiState.update { state -> state.copy(loading = true) }
+//            }.catch {
+//                _uiState.update { state ->
+//                    state.copy(
+//                        loading = false, error = true
+//                    )
+//                }
+//            }.collectLatest { result ->
+//                when (result) {
+//                    is NetworkResult.Success -> {
+//                        _uiState.update {
+//                            it.copy(
+//                                loading = false,
+//                                user = result.value.asDomain(),
+//                                showTutorial = false,
+//                            )
+//                        }
+//                    }
+//
+//                    else -> {}
+//                }
+//            }
+//        }
     }
 
     fun nextTutorial() {
@@ -71,8 +81,9 @@ class HomeViewModel @Inject constructor(private val repository: UserRepository) 
 
 data class HomeUiState(
     val currentTutorial: TutorialDialog,
-    val showTutorial: Boolean = true,
+    val showTutorial: Boolean = false,
     val loading: Boolean = true,
     val error: Boolean = false,
-    val user: UserModel? = null
+    val user: UserModel? = null,
+    val daysLeft: Int = 0
 )

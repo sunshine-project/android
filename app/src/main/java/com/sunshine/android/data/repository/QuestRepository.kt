@@ -1,11 +1,14 @@
 package com.sunshine.android.data.repository
 
+import com.sunshine.android.data.dto.HomeResponse
+import com.sunshine.android.data.dto.NetworkResult
+import com.sunshine.android.data.dto.QuestResponse
 import com.sunshine.android.data.service.QuestService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class QuestRepository @Inject constructor(val questService: QuestService) {
+interface QuestRepository {
 
-//    suspend fun checkSMS(param1: String, param2: String) =
-//        questService.onCheckSMS(param1, param2)
+    suspend fun getQuest(questId: Int): Flow<NetworkResult<QuestResponse>>
 
 }
