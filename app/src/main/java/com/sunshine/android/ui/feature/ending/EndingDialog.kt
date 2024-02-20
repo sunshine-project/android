@@ -44,22 +44,23 @@ fun EndingDialog(onDismiss: () -> Unit) {
             ind_cd = 3
         ),
         JobModel(
-            companyName = "(주)클라리파이",
-            industry = "솔루션 • SI •ERP • CRW",
-            location = "서울 종로구",
+            companyName = "Google",
+            industry = "SW Engineer",
+            location = "서울 영등포구",
             jobType = "정규직",
             url = "http://www.saramin.co.kr/zf_user/jobs/relay/view?rec_idx=47591447&utm_source=job-search-api&utm medium=api&utm campaign=saramin =job-search-api",
             ind_cd = 3
         ),
         JobModel(
-            companyName = "(주)클라리파이",
+            companyName = "Apple",
             industry = "솔루션 • SI •ERP • CRW",
-            location = "서울 종로구",
-            jobType = "정규직",
+            location = "서울 용산구",
+            jobType = "인턴",
             url = "http://www.saramin.co.kr/zf_user/jobs/relay/view?rec_idx=47591447&utm_source=job-search-api&utm medium=api&utm campaign=saramin =job-search-api",
             ind_cd = 3
         ),
-    )
+
+        )
 
     Dialog(onDismissRequest = onDismiss) {
         Card(

@@ -87,7 +87,7 @@
     <string name="home_until_kingdom_falls">Kingdom falls in</string>
     <string name="home_loading_user">Loading user…</string>
     <string name="home_cannot_pull_sword">Every stat has to exceed 100 to be eligible to pull out a Sun Sword.</string>
-    <string name="home_can_pull_sword">You can draw the sun sword. Would you like to draw on?</string>
+    <string name="home_can_pull_sword">You can pull out the "sun sword". Would you like to draw on?</string>
     <string name="home_the_end_title">The beginning after the end</string>
     <string name="home_the_end">Your world is just beginning. Based on the your journal, I\'ve selected new journeys..</string>
 
