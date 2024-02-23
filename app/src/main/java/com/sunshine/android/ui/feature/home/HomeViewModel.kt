@@ -71,7 +71,6 @@ class HomeViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         showTutorial = it.user!!.exp == 0 && it.user.level == 1 && !it.tutorialFinished,
-                        tutorialFinished = true
                     )
                 }
             }
@@ -126,7 +125,7 @@ class HomeViewModel @Inject constructor(
     fun nextTutorial() {
         if (!_tutorialIterator.hasNext()) {
             _uiState.update {
-                it.copy(showTutorial = false)
+                it.copy(showTutorial = false, tutorialFinished = true)
             }
             return
         }

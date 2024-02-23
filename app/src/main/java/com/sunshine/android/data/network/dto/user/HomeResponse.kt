@@ -31,8 +31,9 @@ fun HomeResponse.asUserModel() = UserModel(
     kno = stat.kno,
     level = level,
     gender = when (characterType) {
-        "A" -> 1
-        "B" -> 2
+        "A" -> 0
+        "B" -> 1
+        "C" -> 2
         else -> 3
     },
     exp = experiencePoint,

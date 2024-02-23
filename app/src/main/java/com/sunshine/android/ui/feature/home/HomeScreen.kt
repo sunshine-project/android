@@ -282,10 +282,15 @@ private fun Main(
                                 width = 2.dp,
                                 shape = RoundedCornerShape(8.dp)
                             ))
-                    Image(
-                        painter = painterResource(id = R.drawable.img_character1),
-                        contentDescription = "player",
-                        modifier = Modifier.size(128.dp)
+                    if (uiState.user != null) Image(
+                        painter = painterResource(
+                            id = when (uiState.user.gender) {
+                                0 -> R.drawable.img_character1
+                                1 -> R.drawable.img_character2
+                                2 -> R.drawable.img_character3
+                                else -> R.drawable.img_character4
+                            }
+                        ), contentDescription = "player", modifier = Modifier.size(128.dp)
                     )
                 }
             }
@@ -332,7 +337,14 @@ private fun Profile(user: UserModel, modifier: Modifier = Modifier) {
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
-                    painter = painterResource(id = R.drawable.img_character1),
+                    painter = painterResource(
+                        id = when (user.gender) {
+                            0 -> R.drawable.img_character1
+                            1 -> R.drawable.img_character2
+                            2 -> R.drawable.img_character3
+                            else -> R.drawable.img_character4
+                        }
+                    ),
                     contentDescription = "Profile",
                     modifier = modifier.size(width = 64.dp, height = 84.dp),
                     contentScale = ContentScale.Crop,
