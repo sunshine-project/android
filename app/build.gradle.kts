@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 android {
     namespace = "com.sunshine.android"
     compileSdk = 34
