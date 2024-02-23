@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialCancellationException
 import androidx.credentials.exceptions.GetCredentialException
 import androidx.credentials.exceptions.NoCredentialException
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -38,7 +39,7 @@ class GetIdTokenUseCase @Inject constructor(
                 emit(null)
             }
         } catch (e: GetCredentialException) {
-            if (e is NoCredentialException) {
+            if (e is NoCredentialException || e is GetCredentialCancellationException) {
                 // register
                 try {
                     val result = credentialManager.getCredential(
