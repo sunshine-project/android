@@ -13,6 +13,7 @@ fun NavController.navigateToHomeGraph() = navigate(HOME_GRAPH_ROUTE_PATTERN)
 fun NavGraphBuilder.homeGraph(
     onQuestClick: (Int) -> Unit,
     onLogout: () -> Unit,
+    onEnding: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     navigation(
@@ -22,7 +23,7 @@ fun NavGraphBuilder.homeGraph(
         composable(
             route = HOME_ROUTE,
         ) {
-            HomeRoute(onQuestClick = onQuestClick, onLogout = onLogout)
+            HomeRoute(onQuestClick = onQuestClick, onLogout = onLogout, onEnding = onEnding)
         }
         nestedGraphs()
     }

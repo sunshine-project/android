@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.sunshine.android.ui.common.SunAppState
+import com.sunshine.android.ui.feature.ending.navigation.endingScreen
+import com.sunshine.android.ui.feature.ending.navigation.navigateToEnding
 import com.sunshine.android.ui.feature.home.navigation.homeGraph
 import com.sunshine.android.ui.feature.home.navigation.navigateToHomeGraph
 import com.sunshine.android.ui.feature.onboard.navigation.navigateToOnboard
@@ -14,14 +16,13 @@ import com.sunshine.android.ui.feature.start.modeselect.navigation.modeSelectScr
 import com.sunshine.android.ui.feature.start.modeselect.navigation.navigateToModeSelect
 import com.sunshine.android.ui.feature.start.navigation.navigateToStartGraph
 import com.sunshine.android.ui.feature.start.navigation.startGraph
-import com.sunshine.android.ui.feature.story.navigation.STORY_ROUTE
 import com.sunshine.android.ui.feature.story.navigation.storyScreen
 
 @Composable
 fun SunNavHost(
     appState: SunAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = STORY_ROUTE,
+    startDestination: String,
 ) {
     val navController = appState.navController
     NavHost(
@@ -30,10 +31,11 @@ fun SunNavHost(
         modifier = modifier,
     ) {
         startGraph(
-            onScreenClick = navController::navigateToModeSelect,
+            onModeSelect = navController::navigateToModeSelect,
+            onHome = navController::navigateToHomeGraph,
             nestedGraphs = {
                 modeSelectScreen(
-                    onNormalModeClick = navController::navigateToHomeGraph,
+                    onNormalModeClick = navController::navigateToOnboard,
                     onFreeModeClick = { },
                 )
             },
@@ -42,8 +44,10 @@ fun SunNavHost(
         onboardScreen(onFinish = navController::navigateToHomeGraph)
         homeGraph(onQuestClick = navController::navigateToQuest,
             onLogout = navController::navigateToStartGraph,
+            onEnding = navController::navigateToEnding,
             nestedGraphs = {
                 questScreen(onFinish = navController::popBackStack)
             })
+        endingScreen(onFinish = navController::navigateToStartGraph)
     }
 }

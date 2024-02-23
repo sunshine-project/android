@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.sunshine.android.ui.common.SunApp
 import com.sunshine.android.ui.feature.home.navigation.HOME_GRAPH_ROUTE_PATTERN
 import com.sunshine.android.ui.feature.home.navigation.HOME_ROUTE
+import com.sunshine.android.ui.feature.start.navigation.START_GRAPH_ROUTE_PATTERN
 import com.sunshine.android.ui.feature.story.navigation.STORY_ROUTE
 import com.sunshine.android.ui.theme.SunTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
             SunTheme {
                 val startDestination by viewModel.startDestination.collectAsStateWithLifecycle()
                 startDestination?.let {
-                    SunApp(startDestination = HOME_GRAPH_ROUTE_PATTERN) //TODO change to it
+                    SunApp(startDestination = it)
                 }
             }
         }

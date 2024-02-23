@@ -40,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -49,78 +50,24 @@ import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import com.sunshine.android.R
 import com.sunshine.android.domain.model.JournalModel
-import com.sunshine.android.domain.model.QuestModel
-import com.sunshine.android.domain.model.QuestType
 import com.sunshine.android.ui.theme.Brown
 import com.sunshine.android.ui.theme.LightBrown
 import com.sunshine.android.ui.theme.Typography
-import com.sunshine.android.util.TypewriterText
+import com.sunshine.android.ui.common.component.TypewriterText
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DiaryDialog(onDismiss: () -> Unit, onLogout: () -> Unit) {
+fun DiaryDialog(
+    albumList: List<String>,
+    journalList: List<JournalModel>,
+    onDismiss: () -> Unit,
+    onLogout: () -> Unit
+) {
     val pages = listOf(
         "Album",
         "Journal",
         "Setting",
-    )
-
-    val quests = listOf(
-        listOf(
-            QuestModel(
-                title = "5분 간 명상하기",
-                description = "졸린 꾸벅이를 위해 " + "5분 동안 명상하고 마음을 진정시키세요.",
-                exp = 10,
-                statType = "STR",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-            QuestModel(
-                title = "하늘 사진 찍기",
-                description = "아름다운 하늘을 사진으로 남겨보세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-            QuestModel(
-                title = "먼 산 보기",
-                description = "먼 곳을 바라보며 눈의 피로를 풀어주세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-        ),
-        listOf(
-            QuestModel(
-                title = "하늘 사진 찍기",
-                description = "아름다운 하늘을 사진으로 남겨보세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-        ),
-        listOf(
-            QuestModel(
-                title = "먼 산 보기",
-                description = "먼 곳을 바라보며 눈의 피로를 풀어주세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-            QuestModel(
-                title = "하늘 사진 찍기",
-                description = "아름다운 하늘을 사진으로 남겨보세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-        ),
     )
 
     val pagerState = rememberPagerState(pageCount = { pages.size })
@@ -129,6 +76,8 @@ fun DiaryDialog(onDismiss: () -> Unit, onLogout: () -> Unit) {
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
+
+    val uriHandler = LocalUriHandler.current
 
     Dialog(onDismissRequest = onDismiss) {
         Box(modifier = Modifier.padding(vertical = 24.dp)) {
@@ -175,7 +124,16 @@ fun DiaryDialog(onDismiss: () -> Unit, onLogout: () -> Unit) {
                     modifier = Modifier.weight(1f), state = pagerState, userScrollEnabled = false
                 ) { page ->
                     when (page) {
-                        0 -> LazyVerticalGrid(
+                        0 -> if (albumList.isEmpty()) TypewriterText(
+                            text = stringResource(R.string.diary_no_album),
+                            style = Typography.bodyMedium.copy(
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+                                fontSize = 14.sp,
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        else LazyVerticalGrid(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(16.dp),
                             contentPadding = PaddingValues(
@@ -183,36 +141,26 @@ fun DiaryDialog(onDismiss: () -> Unit, onLogout: () -> Unit) {
                             ),
                             columns = GridCells.Fixed(2)
                         ) {
-                            itemsIndexed(
-                                listOf(
-                                    "https://cdn1.epicgames.com/ue/product/Screenshot/Screenshot23-1920x1080-a2f8a3c1f88f3b5716bdd8c9a2ea0c28.jpg?resize=1&w=1920",
-                                    "https://img.freepik.com/free-vector/pixel-art-mystical-background_52683-87349.jpg",
-                                    "https://cdn1.epicgames.com/ue/product/Screenshot/Screenshot23-1920x1080-2d4c5b4a7155aca73a58b5f564caa11e.jpg?resize=1&w=1920",
-                                )
-                            ) { index, imageUrl ->
+                            itemsIndexed(albumList) { _, imageUrl ->
                                 AlbumItem(imageUrl = imageUrl)
                             }
                         }
 
-                        1 -> LazyColumn(
+                        1 -> if (journalList.isEmpty()) TypewriterText(
+                            text = stringResource(R.string.diary_no_journal),
+                            style = Typography.bodyMedium.copy(
+                                color = Color.Black,
+                                textAlign = TextAlign.Center,
+                                fontSize = 14.sp,
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        else LazyColumn(
                             modifier = Modifier.fillMaxSize(),
                             verticalArrangement = Arrangement.spacedBy(16.dp),
                             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp)
                         ) {
-                            itemsIndexed(
-                                listOf(
-                                    JournalModel(
-                                        title = "Title1",
-                                        answer = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                                    ), JournalModel(
-                                        title = "Title2",
-                                        answer = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                                    ), JournalModel(
-                                        title = "Title3",
-                                        answer = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                                    )
-                                )
-                            ) { index, journal ->
+                            itemsIndexed(journalList) { _, journal ->
                                 JournalItem(
                                     journal = journal, modifier = Modifier.fillMaxWidth()
                                 )
@@ -246,7 +194,9 @@ fun DiaryDialog(onDismiss: () -> Unit, onLogout: () -> Unit) {
                             }
                             ElevatedButton(
                                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
-                                onClick = {},
+                                onClick = {
+                                    uriHandler.openUri("https://github.com/sunshine-project")
+                                },
                                 colors = ButtonColors(
                                     contentColor = Color.White,
                                     containerColor = Brown,
@@ -327,7 +277,9 @@ fun JournalItem(journal: JournalModel, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .background(color = Color.LightGray.copy(alpha = 0.5f))
                 .padding(8.dp)
-                .fillMaxWidth(), text = journal.answer, style = Typography.bodyMedium, minLines = 5
+                .fillMaxWidth(), text = journal.answer, style = Typography.bodyMedium.copy(
+                fontSize = 14.sp, lineHeight = 20.sp
+            ), minLines = 5
         )
     }
 }

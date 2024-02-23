@@ -6,7 +6,16 @@
     <string name="common_next">NEXT</string>
 
     <string name="story_content_1">태초에 여러 신들이 있었다.\n인간 창조에 관여한 신은 4명이며, \n이들은 각각 생명, 정신, 평화, 지식의 신이다.</string>
-    <string name="story_content_2">갓 성인의 나이가 된 당신은 태양검 앞에 섰고, 천천히 손을 뻗어 그 손잡이를 붙잡았다.\n\n지금부터 당신의 여정이 시작된다.</string>
+    <string name="story_content_2">가장 먼저 생명의 신이 인간이라는 생물을 창조했다.\n이들은 육체를 가지고 움직일 수 있었지만, 스스로 생각하는 힘은 없었다.</string>
+    <string name="story_content_3">그 다음으로 정신의 신이 인간에게 스스로 생각하고 행동할 수 있는 힘을 부여했다. 이들은 각자 생각을 가지고 움직이게 되었으나, 다른 인간들과 이를 공유하고 소통하는 법을 몰라 서로 싸웠다.</string>
+    <string name="story_content_4">이를 지켜본 평화의 신이 인간들에게 서로 소통하고 공생하는 법을 알려주었다.\n사람들은 서로 소통하며 평화롭게 지내게 되었지만, 명확한 목적 없는 공허한 삶을 살게 되었다.</string>
+    <string name="story_content_5">마지막으로 지식의 신이 인간들에게 각자 다른 재능을 부여하고, 다양한 지식을 알려주었다.\n그 후 인간들은 직업을 만들고 자신의 역할을 다하는 목표를 가지고 살며, 지금과 같은 모습이 되었다.</string>
+    <string name="story_content_6">신들은 각자의 역할을 다한 뒤 모습을 감추었고, 인간들은 자신들을 만든 4명의 신을 기리기 위해 각각의 신전을 만들었다.</string>
+    <string name="story_content_7">이를 지켜보던 어둠의 신은 인간들이 밝고 평화롭게 살아가는 모습이 마음에 들지 않았다.\n그래서 어느 날 태양의 빛을 검에 봉인해 땅에 꽂으며 이렇게 말했다.</string>
+    <string name="story_content_8">‘나에게 도전하려면 4명의 신의 인정을 받아 이 검을 뽑아야 할 것이다!’</string>
+    <string name="story_content_9">태양검은 강렬한 열과 빛을 내뿜고 있어 평범한 사람은 근처에 가는 것조차 어려웠고,\n오직 일부의 선택받은 사람, 즉 용사들만이 그 검을 잡을 수 있었다.</string>
+    <string name="story_content_10">그 후 왕국에서는 매년 성인이 되는 청년들을 태양검으로 데리고 가 용사의 자질이 있는지 시험했고,\n자질이 확인된 사람들은 4개의 신전에서 신들에게 인정받기 위한 수련에 돌입한다.</string>
+    <string name="story_content_11">갓 성인의 나이가 된 당신은 태양검 앞에 섰고, 천천히 손을 뻗어 그 손잡이를 붙잡았다.\n\n지금부터 당신의 여정이 시작된다.</string>
 
     <string name="onboard_dialog_content_1">반갑습니다, 용사님!\n\n저는 앞으로 용사님의 이야기를 \n기록할 이야기꾼입니다.</string>
     <string name="onboard_dialog_content_2">…그런데 용사님이라는 호칭,\n너무 딱딱하지 않나요?\n\n제가 뭐라고 \n불러 드리면 좋을까요?</string>
@@ -14,13 +23,13 @@
     <string name="onboard_dialog_content_4"><![CDATA[그런데, &name님은 \n어떤 모습이신가요?\n\n주변이 어두워서 그런지\n아직 잘 보이지 않네요.]]></string>
     <string name="onboard_dialog_content_5">아, 이제 잘 보이네요.\n\n역시 용사의 자질을 \n갖춘 분 답게 품격이\n 넘치는 모습이시군요.</string>
     <string name="onboard_dialog_content_6"><![CDATA[여정을 시작하기 전,\n몇 가지 알아두셔야 \n할 게 있답니다.\n\n&name님은 용사에게 필요한\n4가지 능력치, ‘스탯’에 대해\n알고 계시나요?]]></string>
-    <string name="onboard_dialog_content_7">스탯에는 힘(STR), 정신(SPI), \n명성(FAM), 재주(DEX)가 있어요.\n\n퀘스트를 통해 스탯을 \n올릴 수 있고,\n일정 수치가 되면 해당하는 신의\n인정을 받을 수 있어요.</string>
+    <string name="onboard_dialog_content_7">스탯에는 힘(STR), 정신(SPI), \n평화(PEA), 지식(KNO)가 있어요.\n\n퀘스트를 통해 스탯을 \n올릴 수 있고,\n일정 수치가 되면 해당하는 신의\n인정을 받을 수 있어요.</string>
     <string name="onboard_dialog_content_8">4대 신에게 모두 인정받으면\n태양검을 뽑을 \n자격이 생긴답니다. \n\n 단, 70일이 지나기 전에 \n태양검을 뽑지 못하면\n왕국은 멸망하고 말 거에요.</string>
     <string name="onboard_dialog_content_9"><![CDATA[그런데, &name님의 현재 스탯이\n궁금하지 않으신가요?\n\n대부분의 용사님들은 \n기본 스탯에서부터 시작하지만, \n\n간혹 그렇지 않은 \n경우도 있다고요.]]></string>
     <string name="onboard_dialog_content_10">좋아요. 그러면 지금부터\n제가 묻는 질문에 \n대답해 주세요.\n\n솔직하게 답해 주셔야 \n정확한 스탯을 파악할 수 있고, \n\n적합한 퀘스트를 의뢰드릴 수 \n있다는 점 꼭 명심해 주세요.</string>
     <string name="onboard_dialog_content_11"><![CDATA[흠… &name님은 제 예상보다\n훨씬 대단한 분이셨군요.\n\n일부 퀘스트들은 &name님에게\n너무 쉽게 느껴질 수도 \n있겠어요. \n\n그래도 계속하시겠어요?]]></string>
     <string name="onboard_dialog_content_12"><![CDATA[좋아요! \n&name님에 대해 \n조금 더 알아볼게요.\n\n최근 &name님의 상태에 대해\n몇 가지 여쭤봐도 될까요?]]></string>
-    <string name="onboard_dialog_content_13"><![CDATA[수고 많으셨어요. \n질문을 바탕으로 알아본 \n&name님의 현재 스탯은…\n\n힘 &stat1, 정신 &stat2, \n명성 &stat3, 재주 &stat4이네요!]]></string>
+    <string name="onboard_dialog_content_13"><![CDATA[수고 많으셨어요. \n질문을 바탕으로 알아본 \n&name님의 현재 스탯은…\n\n힘 &stat1, 정신 &stat2, \n평화 &stat3, 지식 &stat4!]]></string>
     <string name="onboard_dialog_content_14">당장 스탯이 높지 \n않아도 괜찮아요.\n\n부족한 스탯은 퀘스트를 통해 \n금방 쌓을 수 있으니까요.</string>
     <string name="onboard_dialog_content_15">좋아요! 이제 본격적인 \n여정을 떠날 시간이에요.\n\n첫 퀘스트를 받고 \n수행해볼 수 있도록 \n도와드릴게요.\n\n저를 따라오세요!</string>
 
@@ -72,6 +81,7 @@
 
     <string name="start_title">SUNSHINE</string>
     <string name="start_tap_to_start">- TAP TO START -</string>
+    <string name="start_tap_to_login">- TAP TO LOGIN -</string>
     <string name="tutorial_content_1">본격적인 여정에 앞서 \n플레이 방법을 간단하게 \n설명해드릴게요. \n\n(아무 곳이나 클릭)</string>
     <string name="tutorial_content_2">상단의 화면을 통해\n용사님의 현재 상태를 \n확인할 수 있어요.</string>
     <string name="tutorial_content_3">세상을 구하기 위해서는\n균형잡힌 스탯이 중요해요.</string>
@@ -87,7 +97,7 @@
     <string name="home_until_kingdom_falls">왕국 멸망까지</string>
     <string name="home_loading_user">유저를 불러오는 중입니다…</string>
     <string name="home_cannot_pull_sword">모든 스탯이 100을 넘어야 태양검을 뽑을 자격이 생긴답니다.</string>
-    <string name="home_can_pull_sword">태양검을 뽑을 수 있습니다. 시도 하시겠습니까?</string>
+    <string name="home_can_pull_sword">당신은 떨리는 마음으로 태양검의 손잡이를 천천히 붙잡습니다…</string>
     <string name="home_the_end_title">끝이 아닌 시작</string>
     <string name="home_the_end">용사님의 세계는 이제 시작입니다. 용사님의 일지를 바탕으로 새로운 여정들을 추려보았습니다.</string>
 
@@ -99,5 +109,9 @@
     <string name="quest_routine_mission">오늘의 루틴을 완료하고, \n\"퀘스트 완료하기\" 버튼을 누르세요.</string>
     <string name="quest_timer_mission">타이머를 설정하고 미션을 수행한 뒤, \n\"퀘스트 완료하기\" 버튼을 누르세요.</string>
     <string name="diary_logout">Logout</string>
+    <string name="ending_content">당신은 태양검을 뽑았고, 어둠의 신을 물리치고 왕국에 빛을 되돌려 놓았습니다. 당신의 이름은 영원히 기억될 것입니다.</string>
+    <string name="diary_no_album">찍은 사진들은 앨범에 기록됩니다!</string>
+    <string name="diary_no_journal">적은 문구들은 저널에 기록됩니다!</string>
+    <string name="quest_no_quest">오늘의 퀘스트를 완료했습니다!</string>
 
 </resources>

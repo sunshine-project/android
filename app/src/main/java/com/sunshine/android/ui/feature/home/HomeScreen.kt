@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -39,11 +41,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
 import com.sunshine.android.domain.model.UserModel
 import com.sunshine.android.ui.common.component.SunDialog
-import com.sunshine.android.ui.feature.ending.EndingDialog
 import com.sunshine.android.ui.feature.home.diary.DiaryDialog
 import com.sunshine.android.ui.feature.home.quest.QuestDialog
 import com.sunshine.android.ui.theme.Brown
@@ -51,15 +55,34 @@ import com.sunshine.android.ui.theme.LightBrown
 import com.sunshine.android.ui.theme.Red
 import com.sunshine.android.ui.theme.Typography
 import com.sunshine.android.ui.theme.Yellow
-import com.sunshine.android.util.TypewriterText
+import com.sunshine.android.ui.common.component.TypewriterText
 
+
+@Composable
+fun ComposableLifecycle(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    onEvent: (LifecycleOwner, Lifecycle.Event) -> Unit
+) {
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { source, event ->
+            onEvent(source, event)
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+}
 
 @Composable
 internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     onQuestClick: (Int) -> Unit,
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    onEnding: () -> Unit,
 ) {
     val uiState: HomeUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -67,7 +90,11 @@ internal fun HomeRoute(
         uiState = uiState,
         onNextTutorial = viewModel::nextTutorial,
         onQuestClick = onQuestClick,
-        onLogout = onLogout,
+        onLogout = {
+            viewModel.logout(onLogout)
+        },
+        onRefresh = viewModel::fetch,
+        onEnding = onEnding,
         modifier = modifier
     )
 }
@@ -78,8 +105,19 @@ fun HomeScreen(
     onNextTutorial: () -> Unit,
     onQuestClick: (Int) -> Unit,
     onLogout: () -> Unit,
+    onEnding: () -> Unit,
+    onRefresh: () -> Unit,
     modifier: Modifier
 ) {
+    ComposableLifecycle { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> {
+                onRefresh()
+            }
+
+            else -> {}
+        }
+    }
     Box {
         if (uiState.showTutorial) Box(modifier = modifier
             .fillMaxSize()
@@ -116,10 +154,11 @@ fun HomeScreen(
                 user = uiState.user,
             )
             Main(
+                modifier = modifier.border(color = Red, width = 3.dp),
                 uiState = uiState,
                 onQuestClick = onQuestClick,
                 onLogout = onLogout,
-                modifier = modifier.border(color = Red, width = 3.dp)
+                onEnding = onEnding
             )
         }
     }
@@ -127,13 +166,16 @@ fun HomeScreen(
 
 @Composable
 private fun Main(
-    uiState: HomeUiState, onQuestClick: (Int) -> Unit, onLogout: () -> Unit, modifier: Modifier
+    modifier: Modifier,
+    uiState: HomeUiState,
+    onQuestClick: (Int) -> Unit,
+    onLogout: () -> Unit,
+    onEnding: () -> Unit,
 ) {
 
     var showQuestDialog by rememberSaveable { mutableStateOf(false) }
     var showDiaryDialog by rememberSaveable { mutableStateOf(false) }
     var showSwordDialog by rememberSaveable { mutableStateOf(false) }
-    var showEndingDialog by rememberSaveable { mutableStateOf(false) }
 
     Box {
         Image(
@@ -199,19 +241,19 @@ private fun Main(
                         .padding(4.dp),
                     horizontalAlignment = Alignment.End,
                 ) {
-                    Text(
+                    TypewriterText(
                         text = stringResource(R.string.home_until_kingdom_falls),
-                        textAlign = TextAlign.End,
                         style = MaterialTheme.typography.titleSmall.copy(
-                            color = Color.White
+                            color = Color.White,
+                            textAlign = TextAlign.End,
                         )
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(
+                    TypewriterText(
                         text = "D-${uiState.daysLeft}",
-                        textAlign = TextAlign.End,
                         style = MaterialTheme.typography.titleSmall.copy(
                             color = Red,
+                            textAlign = TextAlign.End,
                         )
                     )
                 }
@@ -229,7 +271,7 @@ private fun Main(
                 Box(
                     contentAlignment = Alignment.Center, modifier = Modifier.padding(top = 50.dp)
                 ) {
-                    Image(painter = painterResource(id = R.drawable.quest),
+                    if (uiState.showQuestMark) Image(painter = painterResource(id = R.drawable.quest),
                         contentDescription = "quest",
                         modifier = Modifier
                             .padding(bottom = 200.dp)
@@ -248,32 +290,28 @@ private fun Main(
                 }
             }
             if (showSwordDialog) {
-                SunDialog(
-                    stringResource(R.string.home_can_pull_sword),
-//                    stringResource(R.string.home_cannot_pull_sword), //여기 주석
-                    onDismiss = {
-                        showSwordDialog = false
-                        showEndingDialog = true //여기 주석
-                    }
-                )
+                SunDialog(if (uiState.user!!.ableToEndGame) stringResource(R.string.home_can_pull_sword)
+                else stringResource(R.string.home_cannot_pull_sword), onDismiss = {
+                    showSwordDialog = false
+                    if (uiState.user.ableToEndGame) onEnding()
+                })
             }
             if (showQuestDialog) {
-                QuestDialog(onDismiss = { showQuestDialog = false }, onQuestClick = {
-                    showQuestDialog = false
-                    onQuestClick(it)
-                })
+                QuestDialog(quests = uiState.quests,
+                    onDismiss = { showQuestDialog = false },
+                    onQuestClick = {
+                        showQuestDialog = false
+                        onQuestClick(it)
+                    })
             }
             if (showDiaryDialog) {
-                DiaryDialog(onDismiss = { showDiaryDialog = false }, onLogout = {
-                    showDiaryDialog = false
-                    onLogout()
-                })
-            }
-
-            if (showEndingDialog) {
-                EndingDialog(onDismiss = {
-                    showEndingDialog = false
-                })
+                DiaryDialog(albumList = uiState.album,
+                    journalList = uiState.journal,
+                    onDismiss = { showDiaryDialog = false },
+                    onLogout = {
+                        showDiaryDialog = false
+                        onLogout()
+                    })
             }
         }
     }
@@ -302,7 +340,7 @@ private fun Profile(user: UserModel, modifier: Modifier = Modifier) {
                 )
                 Spacer(modifier = modifier.height(8.dp))
                 Row {
-                    Text(
+                    TypewriterText(
                         text = user.name, style = Typography.bodyLarge.copy(
                             fontSize = 14.sp
                         )
@@ -330,7 +368,7 @@ private fun Profile(user: UserModel, modifier: Modifier = Modifier) {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = modifier.padding(vertical = 4.dp)
                 ) {
-                    Text(
+                    TypewriterText(
                         text = "STR",
                         style = Typography.bodyMedium.copy(fontSize = 13.sp),
                         modifier = modifier.width(28.dp)
@@ -343,18 +381,19 @@ private fun Profile(user: UserModel, modifier: Modifier = Modifier) {
                             .padding(horizontal = 8.dp),
                         color = Red,
                     )
-                    Text(
+                    TypewriterText(
                         text = user.str.toString(),
-                        style = Typography.bodyMedium.copy(fontSize = 13.sp),
+                        style = Typography.bodyMedium.copy(
+                            fontSize = 13.sp, textAlign = TextAlign.End
+                        ),
                         modifier = modifier.width(24.dp),
-                        textAlign = TextAlign.End
                     )
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = modifier.padding(vertical = 4.dp)
                 ) {
-                    Text(
+                    TypewriterText(
                         text = "SPI",
                         style = Typography.bodyMedium.copy(fontSize = 13.sp),
                         modifier = modifier.width(28.dp)
@@ -367,18 +406,19 @@ private fun Profile(user: UserModel, modifier: Modifier = Modifier) {
                             .padding(horizontal = 8.dp),
                         color = Color.Blue,
                     )
-                    Text(
+                    TypewriterText(
                         text = user.spi.toString(),
-                        style = Typography.bodyMedium.copy(fontSize = 13.sp),
+                        style = Typography.bodyMedium.copy(
+                            fontSize = 13.sp, textAlign = TextAlign.End
+                        ),
                         modifier = modifier.width(24.dp),
-                        textAlign = TextAlign.End
                     )
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = modifier.padding(vertical = 4.dp)
                 ) {
-                    Text(
+                    TypewriterText(
                         text = "PEA",
                         style = Typography.bodyMedium.copy(fontSize = 13.sp),
                         modifier = modifier.width(28.dp)
@@ -391,18 +431,19 @@ private fun Profile(user: UserModel, modifier: Modifier = Modifier) {
                             .padding(horizontal = 8.dp),
                         color = Color.Green,
                     )
-                    Text(
+                    TypewriterText(
                         text = user.pea.toString(),
-                        style = Typography.bodyMedium.copy(fontSize = 13.sp),
+                        style = Typography.bodyMedium.copy(
+                            fontSize = 13.sp, textAlign = TextAlign.End
+                        ),
                         modifier = modifier.width(24.dp),
-                        textAlign = TextAlign.End
                     )
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = modifier.padding(vertical = 4.dp)
                 ) {
-                    Text(
+                    TypewriterText(
                         text = "KNO",
                         style = Typography.bodyMedium.copy(fontSize = 13.sp),
                         modifier = modifier.width(28.dp)
@@ -415,11 +456,12 @@ private fun Profile(user: UserModel, modifier: Modifier = Modifier) {
                             .padding(horizontal = 8.dp),
                         color = Color.Yellow,
                     )
-                    Text(
+                    TypewriterText(
                         text = user.kno.toString(),
-                        style = Typography.bodyMedium.copy(fontSize = 13.sp),
+                        style = Typography.bodyMedium.copy(
+                            fontSize = 13.sp, textAlign = TextAlign.End
+                        ),
                         modifier = modifier.width(24.dp),
-                        textAlign = TextAlign.End
                     )
                 }
             }

@@ -45,7 +45,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
 import com.sunshine.android.ui.theme.Red
 import com.sunshine.android.ui.theme.Typography
-import com.sunshine.android.util.TypewriterText
+import com.sunshine.android.ui.common.component.TypewriterText
 
 @Composable
 internal fun OnboardRoute(
@@ -56,12 +56,13 @@ internal fun OnboardRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
 
+    if (uiState.currentEvent == OnboardEvent.ONBOARD_FINISH) onFinish()
+
     OnboardScreen(
         uiState = uiState,
         error = error,
         onShowAnswer = viewModel::showAnswer,
         onNextClick = viewModel::nextDialogOrEvent,
-        onFinish = onFinish,
         onRegisterName = viewModel::registerName,
         onRegisterGender = viewModel::registerGender,
         onRegisterWarning = viewModel::registerWarning,
@@ -76,7 +77,6 @@ internal fun OnboardScreen(
     error: String?,
     onShowAnswer: () -> Unit,
     onNextClick: () -> Unit,
-    onFinish: () -> Unit,
     onRegisterName: (String) -> Unit,
     onRegisterGender: (Int) -> Unit,
     onRegisterWarning: (Boolean) -> Unit,
@@ -93,8 +93,6 @@ internal fun OnboardScreen(
         OnboardEvent.ONBOARD_STAT -> OnboardStatDialog(
             currentPage = uiState.currentStatPage, onConfirm = onRegisterStat
         )
-
-        OnboardEvent.ONBOARD_FINISH -> onFinish()
 
         else -> {}
     }

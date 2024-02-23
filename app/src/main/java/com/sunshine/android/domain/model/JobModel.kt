@@ -7,5 +7,5 @@ data class JobModel(
     val location: String,
     val jobType: String,
     val url: String,
-    val ind_cd: Int
+    val indCd: Int
 )
