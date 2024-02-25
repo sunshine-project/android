@@ -22,30 +22,44 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
 import com.sunshine.android.ui.theme.Typography
-import com.sunshine.android.util.AnimatedImage
+import com.sunshine.android.ui.common.component.AnimatedImage
 
 @Composable
 internal fun StartRoute(
-    onScreenClick: () -> Unit,
+    onModeSelect: () -> Unit,
+    onHome: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: StartViewModel = hiltViewModel(),
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
     StartScreen(
         modifier = modifier,
-        onScreenClick = onScreenClick,
+        uiState = uiState,
+        onScreenClick = {
+            when (uiState.isRegistered) {
+                true -> onHome()
+                false -> onModeSelect()
+                else -> viewModel.googleLogin(context)
+            }
+        },
     )
 }
 
 @Composable
 internal fun StartScreen(
     modifier: Modifier = Modifier,
+    uiState: StartUiState,
     onScreenClick: () -> Unit,
 ) {
     val startVisibilityAnimation = rememberInfiniteTransition(label = "startVisibilityAnimation")
@@ -81,7 +95,8 @@ internal fun StartScreen(
             )
             Text(
                 modifier = modifier.alpha(startVisibility),
-                text = stringResource(R.string.start_tap_to_start),
+                text = if (uiState.isRegistered != null) stringResource(R.string.start_tap_to_start)
+                else stringResource(R.string.start_tap_to_login),
                 style = Typography.bodyMedium.copy(
                     fontSize = 24.sp, color = Color.White, shadow = Shadow(
                         color = Color.Black, offset = Offset(0f, 0f), blurRadius = 16f

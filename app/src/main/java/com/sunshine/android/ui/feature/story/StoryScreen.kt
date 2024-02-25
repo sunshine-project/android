@@ -1,6 +1,7 @@
 package com.sunshine.android.ui.feature.story
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,11 +28,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sunshine.android.R
+import com.sunshine.android.ui.theme.Brown
 import com.sunshine.android.ui.theme.DarkBrown
 import com.sunshine.android.ui.theme.LightBrown
 import com.sunshine.android.ui.theme.Typography
-import com.sunshine.android.util.AnimatedImage
-import com.sunshine.android.util.TypewriterText
+import com.sunshine.android.ui.common.component.AnimatedImage
+import com.sunshine.android.ui.common.component.TypewriterText
 
 @Composable
 internal fun StoryRoute(
@@ -74,6 +76,10 @@ internal fun StoryScreen(
             modifier = modifier
                 .background(color = LightBrown)
                 .fillMaxWidth()
+                .border(
+                    width = 4.dp,
+                    color = Brown,
+                )
                 .padding(horizontal = 24.dp, vertical = 36.dp),
             horizontalAlignment = Alignment.End,
         ) {
@@ -100,10 +106,9 @@ internal fun StoryScreen(
                 shape = RoundedCornerShape(0.dp),
             ) {
                 Text(
-                    text = if (uiState.currentStory.isLastPage) stringResource(R.string.common_start) else stringResource(
+                    text = if (uiState.isLastPage) stringResource(R.string.common_start) else stringResource(
                         R.string.common_next
-                    ),
-                    style = Typography.bodyMedium.copy(fontSize = 20.sp)
+                    ), style = Typography.bodyMedium.copy(fontSize = 20.sp)
                 )
             }
         }

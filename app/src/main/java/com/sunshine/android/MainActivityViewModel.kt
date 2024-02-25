@@ -2,7 +2,7 @@ package com.sunshine.android
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sunshine.android.domain.usecase.GetPreferenceUseCase
+import com.sunshine.android.domain.usecase.GetStoryFinishedUseCase
 import com.sunshine.android.ui.feature.start.navigation.START_GRAPH_ROUTE_PATTERN
 import com.sunshine.android.ui.feature.story.navigation.STORY_ROUTE
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    getPreference: GetPreferenceUseCase,
+    getStoryFinishedUseCase: GetStoryFinishedUseCase,
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
@@ -28,7 +28,7 @@ class MainActivityViewModel @Inject constructor(
         viewModelScope.launch {
             delay(2000) // long operation
 
-            val isFinished = getPreference().first().storyCompleted
+            val isFinished = getStoryFinishedUseCase()
             _startDestination.value = if (isFinished) {
                 START_GRAPH_ROUTE_PATTERN
             } else {

@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 android {
     namespace = "com.sunshine.android"
     compileSdk = 34
@@ -27,6 +31,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(
@@ -78,7 +88,10 @@ dependencies {
     implementation(libs.retrofit2)
     implementation(libs.converterGson)
     implementation(libs.loggingInterceptor)
-//    implementation(libs.accompanist.pager)
-//    implementation(libs.accompanist.pager.indicators)
     implementation(libs.coil.compose)
+
+    implementation(libs.googleid)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+
 }

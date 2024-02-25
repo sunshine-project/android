@@ -19,6 +19,8 @@ val Context.dataStore by preferencesDataStore(name = SUNSHINE_PREFERENCES_NAME)
 
 data class SunPreferences(
     val storyCompleted: Boolean,
+    val accessToken: String?,
+    val refreshToken: String?,
 )
 
 @Module

@@ -29,7 +29,6 @@ import androidx.compose.ui.window.Dialog
 import com.sunshine.android.R
 import com.sunshine.android.ui.theme.Brown
 import com.sunshine.android.ui.theme.Typography
-import com.sunshine.android.util.TypewriterText
 
 @Composable
 fun SunDialog(comment: String, onDismiss: () -> Unit) {
@@ -65,7 +64,7 @@ fun SunDialog(comment: String, onDismiss: () -> Unit) {
                             color = Color.Black,
                             textAlign = TextAlign.Center,
                             fontSize = 16.sp,
-                            lineHeight = 20.sp
+                            lineHeight = 24.sp
                         ),
                     )
                     Spacer(modifier = Modifier.height(10.dp))

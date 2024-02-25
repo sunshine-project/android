@@ -6,14 +6,23 @@
     <string name="common_next">NEXT</string>
 
     <string name="story_content_1">In the beginning, there were many gods. Four gods were involved in the creation of humans, each representing life, spirit, peace, and knowledge respectively.</string>
-    <string name="story_content_2">You, now an adult, stand before the Sun Sword and slowly reach out to grab its hilt.\n\nYour journey begins now.</string>
+    <string name="story_content_2">First, the God of life created a creature called human beings.\nThey could move with their bodies, but they had no power to think for themselves.</string>
+    <string name="story_content_3">Next, the god of spirit gave humans the power to think and act on their own. \nThey each moved with their own thoughts, but did not know how to share and communicate with other humans, so they fought with each other.</string>
+    <string name="story_content_4">The God of Peace observed this and taught humans how to communicate and coexist.\nPeople began to communicate with each other and live in peace, but they also lived empty lives without a clear purpose.</string>
+    <string name="story_content_5">Lastly, the God of Knowledge gave each human being different talents and taught them various knowledge.\nAfter that, humans lived with the goal of creating jobs and fulfilling their roles, and they became what they are now.</string>
+    <string name="story_content_6">The gods disappeared after completing their roles, and humans created separate temples to honor the four gods who created them.</string>
+    <string name="story_content_7">The God of Darkness did not like the sight of humans living brightly and peacefully.\nSo one day, he sealed the light of the sun into a sword and stuck it into the ground, saying this.</string>
+    <string name="story_content_8">‘If you want to challenge me, you will have to receive the approval of the four gods and draw this sword!’</string>
+    <string name="story_content_9">The sun sword emits intense heat and light, making it difficult for ordinary people to even go near it.\nOnly a select few, the bravers, could hold the sword.</string>
+    <string name="story_content_10">After that, every year, the kingdom took young people who came of age to the sun sword to test whether they had the qualities of a braver.\nThose whose qualifications are confirmed begin training to be recognized by the gods at four temples.</string>
+    <string name="story_content_11">You, now an adult, stand before the Sun Sword and slowly reach out to grab its hilt.\n\nYour journey begins now.</string>
 
     <string name="onboard_dialog_content_1">Nice to meet you, The braver!\nI am the storyteller who will record your adventures from now on.</string>
     <string name="onboard_dialog_content_2">…But the title of the braver,\nIsn\'t it too stiff?\n\nWhat should I call you?</string>
     <string name="onboard_dialog_content_3"><![CDATA[<&name>,\nThat\'s a good name.\n\nI\'m really looking forward to the journey with you.]]></string>
     <string name="onboard_dialog_content_4"><![CDATA[By the way, what does &name sir look like?\n\nPerhaps the darkness around here is hindering my vision.]]></string>
     <string name="onboard_dialog_content_5">Ah, I can see it clearly now.\n\nAs expected, you have the qualities of the braver. You look so classy.</string>
-    <string name="onboard_dialog_content_6"><![CDATA[Before starting the journey, There are a few things you need to know.\n\n&name is what the braver needs\nAbout the 4 abilities, ‘stats’\nDid you know?]]></string>
+    <string name="onboard_dialog_content_6"><![CDATA[Before starting the journey, There are a few things you need to know.\n\nDid you know about the four abilities the braver needs, the ‘stat’?]]></string>
     <string name="onboard_dialog_content_7">Stats include Strength (STR), Spirit (SPI), There is Peace (PEA) and Knowledge (KNO). \n\nYou can raise your stats through quests, Once you reach a certain number, you can receive recognition from the corresponding god.</string>
     <string name="onboard_dialog_content_8">If you are recognized by all four gods, you will be eligible to draw the Sun Sword.\n\nBut, If you do not draw your sword within 70 days, The kingdom will be destroyed.</string>
     <string name="onboard_dialog_content_9"><![CDATA[By the way, aren’t you curious about your current stats?\n\nMost of the bravers start with basic stats, but sometimes that doesn\'t happen.]]></string>
@@ -72,6 +81,7 @@
 
     <string name="start_title">SUNSHINE</string>
     <string name="start_tap_to_start">- TAP TO START -</string>
+    <string name="start_tap_to_login">- TAP TO LOGIN -</string>
     <string name="tutorial_content_1">Before we begin our journey, I will briefly explain how to play.\n\n(Touch to continue)</string>
     <string name="tutorial_content_2">You can check current status through the screen at the top.</string>
     <string name="tutorial_content_3">Balanced stats are important to save the world.</string>
@@ -87,7 +97,7 @@
     <string name="home_until_kingdom_falls">Kingdom falls in</string>
     <string name="home_loading_user">Loading user…</string>
     <string name="home_cannot_pull_sword">Every stat has to exceed 100 to be eligible to pull out a Sun Sword.</string>
-    <string name="home_can_pull_sword">You can pull out the "sun sword". Would you like to draw on?</string>
+    <string name="home_can_pull_sword">You slowly hold onto the handle of the sun sword with a trembling heart…</string>
     <string name="home_the_end_title">The beginning after the end</string>
     <string name="home_the_end">Your world is just beginning. Based on the your journal, I\'ve selected new journeys..</string>
 
@@ -99,5 +109,9 @@
     <string name="quest_routine_mission">Finish your daily routine and \npress \"COMPLETE QUEST\".</string>
     <string name="quest_timer_mission">Set timer, complete the mission and \npress \"COMPLETE QUEST\".</string>
     <string name="diary_logout">Logout</string>
+    <string name="ending_content">You pulled out the sun sword, defeated the god of darkness and returned the light to the kingdom. Your name will be remembered forever.</string>
+    <string name="diary_no_album">Your album will be here!</string>
+    <string name="diary_no_journal">Your journal will be here!</string>
+    <string name="quest_no_quest">Finished all the quests today!</string>
 
 </resources>

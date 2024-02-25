@@ -10,4 +10,5 @@ data class UserModel(
     val gender: Int,
     val exp: Int,
     val expLeft: Int,
+    val ableToEndGame: Boolean,
 )

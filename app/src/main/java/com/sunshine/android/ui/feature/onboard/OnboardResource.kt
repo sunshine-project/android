@@ -4,7 +4,7 @@ import com.sunshine.android.R
 import com.sunshine.android.util.getString
 
 enum class OnboardEvent {
-    ONBOARD_NAME, ONBOARD_GENDER, ONBOARD_WARNING, ONBOARD_STAT, ONBOARD_FINISH
+    ONBOARD_NAME, ONBOARD_GENDER, ONBOARD_WARNING, ONBOARD_STAT, ONBOARD_REGISTER, ONBOARD_FINISH
 }
 
 data class OnboardDialog(
@@ -89,7 +89,7 @@ val onboardDialogResources = listOf(
         content = getString(R.string.onboard_dialog_content_15),
         answer = getString(R.string.onboard_dialog_answer_15),
         isHostWithLantern = true,
-        event = OnboardEvent.ONBOARD_FINISH
+        event = OnboardEvent.ONBOARD_REGISTER
     ),
 )
 

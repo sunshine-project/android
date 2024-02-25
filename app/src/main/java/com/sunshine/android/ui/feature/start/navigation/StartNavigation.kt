@@ -2,7 +2,6 @@ package com.sunshine.android.ui.feature.start.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.sunshine.android.ui.feature.start.StartRoute
@@ -13,7 +12,8 @@ fun NavController.navigateToStartGraph() =
     navigate(START_GRAPH_ROUTE_PATTERN)
 
 fun NavGraphBuilder.startGraph(
-    onScreenClick: () -> Unit,
+    onModeSelect: () -> Unit,
+    onHome: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     navigation(
@@ -23,7 +23,7 @@ fun NavGraphBuilder.startGraph(
         composable(
             route = START_ROUTE,
         ) {
-            StartRoute(onScreenClick)
+            StartRoute(onModeSelect = onModeSelect, onHome = onHome)
         }
         nestedGraphs()
     }

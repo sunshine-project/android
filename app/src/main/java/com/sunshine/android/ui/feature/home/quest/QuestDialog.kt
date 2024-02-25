@@ -47,78 +47,22 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.sunshine.android.R
 import com.sunshine.android.domain.model.QuestModel
-import com.sunshine.android.domain.model.QuestType
 import com.sunshine.android.ui.theme.Brown
 import com.sunshine.android.ui.theme.LightBrown
 import com.sunshine.android.ui.theme.Orange
 import com.sunshine.android.ui.theme.Typography
-import com.sunshine.android.util.TypewriterText
+import com.sunshine.android.ui.common.component.TypewriterText
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun QuestDialog(onDismiss: () -> Unit, onQuestClick: (Int) -> Unit) {
+fun QuestDialog(
+    quests: List<List<QuestModel>>, onDismiss: () -> Unit, onQuestClick: (Int) -> Unit
+) {
     val pages = listOf(
         "today",
         "routine",
         "completed",
-    )
-
-    val quests = listOf(
-        listOf(
-            QuestModel(
-                title = "5분 간 명상하기",
-                description = "졸린 꾸벅이를 위해 " + "5분 동안 명상하고 마음을 진정시키세요.",
-                exp = 10,
-                statType = "STR",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-            QuestModel(
-                title = "하늘 사진 찍기",
-                description = "아름다운 하늘을 사진으로 남겨보세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-            QuestModel(
-                title = "먼 산 보기",
-                description = "먼 곳을 바라보며 눈의 피로를 풀어주세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-        ),
-        listOf(
-            QuestModel(
-                title = "하늘 사진 찍기",
-                description = "아름다운 하늘을 사진으로 남겨보세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-        ),
-        listOf(
-            QuestModel(
-                title = "먼 산 보기",
-                description = "먼 곳을 바라보며 눈의 피로를 풀어주세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-            QuestModel(
-                title = "하늘 사진 찍기",
-                description = "아름다운 하늘을 사진으로 남겨보세요.",
-                exp = 10,
-                statType = "SPI",
-                statValue = 1,
-                questType = QuestType.SHORT_ANSWER
-            ),
-        ),
     )
 
     val pagerState = rememberPagerState(pageCount = { pages.size })
@@ -172,29 +116,24 @@ fun QuestDialog(onDismiss: () -> Unit, onQuestClick: (Int) -> Unit) {
                 HorizontalPager(
                     modifier = Modifier.weight(1f), state = pagerState, userScrollEnabled = false
                 ) { page ->
-//                        Column(
-//                            modifier = Modifier.fillMaxSize(),
-//                            horizontalAlignment = Alignment.CenterHorizontally,
-//                            verticalArrangement = Arrangement.Center
-//                        ) {
-//                            Text(
-//                                text = pages[page], style = Typography.bodyMedium.copy(
-//                                    color = Color.Black,
-//                                    textAlign = TextAlign.Center,
-//                                    fontSize = 16.sp,
-//                                    lineHeight = 20.sp
-//                                ), modifier = Modifier.padding(horizontal = 40.dp)
-//                            )
-//                        }
-                    LazyColumn(
+                    if (quests[page].isEmpty()) TypewriterText(
+                        text = stringResource(R.string.quest_no_quest),
+                        style = Typography.bodyMedium.copy(
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+                            fontSize = 14.sp,
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    else LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         contentPadding = PaddingValues(vertical = 16.dp)
                     ) {
-                        itemsIndexed(quests[page]) { index, quest ->
-                            QuestItem(quest = quest, modifier = Modifier.clickable {
+                        itemsIndexed(quests[page]) { _, quest ->
+                            QuestItem(quest = quest, modifier = if (page < 2) Modifier.clickable {
                                 onQuestClick(quest.id)
-                            })
+                            } else Modifier)
                         }
                     }
                 }
@@ -274,7 +213,7 @@ fun QuestItem(quest: QuestModel, modifier: Modifier) {
             )
             Spacer(modifier = modifier.height(8.dp))
             TypewriterText(
-                text = "${quest.statType}+${quest.statValue} EXP+${quest.exp}",
+                text = (if (quest.statValue > 0) "${quest.statType}+${quest.statValue} " else "") + "EXP+${quest.exp}",
                 style = Typography.bodyMedium.copy(
                     fontSize = 12.sp, color = Orange
                 ),
